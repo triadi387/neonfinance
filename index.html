@@ -134,14 +134,20 @@
             border-right: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 10;
+            transition: var(--transition);
+        }
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .logo i {
             color: var(--primary);
@@ -154,6 +160,18 @@
             background-clip: text;
             color: transparent;
             font-weight: 700;
+        }
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .sidebar-toggle:hover {
+            color: var(--primary);
         }
         .menu {
             display: flex;
@@ -789,9 +807,13 @@
                 height: 100vh;
                 transition: var(--transition);
                 z-index: 1000;
+                overflow-y: auto;
             }
             .sidebar.active {
                 left: 0;
+            }
+            .sidebar-toggle {
+                display: block;
             }
             .main-content {
                 padding-left: 20px;
@@ -874,6 +896,23 @@
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
@@ -926,10 +965,15 @@
     <!-- Main App Container (Hidden by default) -->
     <div class="container hidden" id="appContainer">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <i class="fas fa-wallet"></i>
-                <h1>NeonFinance</h1>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-wallet"></i>
+                    <h1>NeonFinance</h1>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="menu">
                 <a href="#" class="menu-item active" data-page="dashboard">
@@ -962,6 +1006,8 @@
                 </a>
             </div>
         </div>
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <!-- Main Content -->
         <div class="main-content">
             <!-- Header -->
@@ -1450,7 +1496,9 @@
     const menuItems = document.querySelectorAll('.menu-item');
     const pages = document.querySelectorAll('.page');
     const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebar = document.getElementById('sidebar');
     const currentDateEl = document.getElementById('currentDate');
     const userNameEl = document.getElementById('userName');
     const userAvatar = document.getElementById('userAvatar');
@@ -1944,12 +1992,23 @@
                     // Update active menu item
                     menuItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
+                    
+                    // Close sidebar on mobile after navigation
+                    if (window.innerWidth <= 992) {
+                        closeSidebar();
+                    }
                 });
             }
         });
         // Mobile menu toggle
         menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+            openSidebar();
+        });
+        sidebarToggle.addEventListener('click', () => {
+            closeSidebar();
+        });
+        sidebarOverlay.addEventListener('click', () => {
+            closeSidebar();
         });
         // Transaction type change
         typeRadios.forEach(radio => {
@@ -2015,6 +2074,18 @@
             document.getElementById('saveCategoryBtn').textContent = 'Simpan Kategori';
             delete categoryForm.dataset.editingId;
         });
+    }
+    // Function to open sidebar
+    function openSidebar() {
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    // Function to close sidebar
+    function closeSidebar() {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
     }
     // Update account dropdown options
     function updateAccountOptions() {
