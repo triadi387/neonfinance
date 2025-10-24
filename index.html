@@ -13,18 +13,95 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: var(--bg);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
+        
+        /* Background elements for finance theme */
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 163, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(123, 44, 191, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 200, 83, 0.03) 0%, transparent 30%);
+            z-index: 0;
+        }
+        
+        .floating-coins {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .coin {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+        
+        .coin:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #00a3ff, transparent);
+            top: 10%;
+            left: 10%;
+            animation-duration: 20s;
+        }
+        
+        .coin:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #7b2cbf, transparent);
+            top: 70%;
+            left: 80%;
+            animation-duration: 25s;
+        }
+        
+        .coin:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #00c853, transparent);
+            top: 40%;
+            left: 60%;
+            animation-duration: 30s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
         .auth-box {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 30px;
             width: 100%;
             max-width: 400px;
             box-shadow: var(--box-shadow);
             animation: fadeIn 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
+        
         .auth-title {
             text-align: center;
             margin-bottom: 30px;
@@ -35,30 +112,35 @@
             background-clip: text;
             color: transparent;
         }
+        
         .auth-form .form-group {
             margin-bottom: 20px;
         }
+        
         .auth-form .form-label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
             color: var(--text-dark);
         }
+        
         .auth-form .form-control {
             width: 100%;
             padding: 12px 15px;
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
             color: var(--text);
             font-size: 14px;
             transition: var(--transition);
         }
+        
         .auth-form .form-control:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(0, 163, 255, 0.2);
         }
+        
         .auth-form .btn {
             width: 100%;
             padding: 12px;
@@ -69,30 +151,132 @@
             transition: var(--transition);
             margin-top: 10px;
         }
+        
         .auth-form .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             color: white;
         }
+        
         .auth-form .btn-primary:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(90deg, var(--primary-dark), #0052cc);
         }
+        
         .auth-switch {
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
             color: var(--text-dark);
         }
+        
         .auth-switch a {
             color: var(--primary);
             text-decoration: none;
             cursor: pointer;
         }
+        
         .auth-switch a:hover {
             text-decoration: underline;
         }
+        
         .hidden {
             display: none !important;
         }
+        
+        /* Update Popup Styles */
+        .update-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .update-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .update-content {
+            background: linear-gradient(135deg, #1e1e2e, #2a2a3e);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .update-popup.active .update-content {
+            transform: translateY(0);
+        }
+        
+        .update-icon {
+            font-size: 60px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .update-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+        
+        .update-message {
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .update-features {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        
+        .update-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        
+        .update-feature i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .update-btn {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .update-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 163, 255, 0.4);
+        }
+        
         /* Style yang sudah ada sebelumnya */
         :root {
             --primary: #00a3ff;
@@ -101,41 +285,123 @@
             --text: #e0e0e0;
             --text-dark: #a0a0a0;
             --bg: #121212;
-            --bg-light: #1e1e1e;
-            --bg-lighter: #2a2a2a;
+            --bg-light: #1e1e2e;
+            --bg-lighter: #2a2a3e;
             --success: #00c853;
             --danger: #ff1744;
             --warning: #ff9100;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --border-radius: 12px;
+            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             --transition: all 0.3s ease;
         }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
-            background-color: var(--bg);
+            background: linear-gradient(135deg, #121212, #1a1a2e, #16213e);
+            background-attachment: fixed;
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
+        
+        /* Finance background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 163, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(123, 44, 191, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 200, 83, 0.02) 0%, transparent 30%);
+            z-index: -1;
+        }
+        
+        .finance-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .finance-element {
+            position: absolute;
+            opacity: 0.05;
+            animation: float-finance 20s infinite linear;
+        }
+        
+        .finance-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            font-size: 60px;
+            color: var(--primary);
+            animation-duration: 25s;
+        }
+        
+        .finance-element:nth-child(2) {
+            top: 60%;
+            left: 85%;
+            font-size: 80px;
+            color: var(--secondary);
+            animation-duration: 30s;
+        }
+        
+        .finance-element:nth-child(3) {
+            top: 30%;
+            left: 70%;
+            font-size: 50px;
+            color: var(--success);
+            animation-duration: 35s;
+        }
+        
+        .finance-element:nth-child(4) {
+            top: 80%;
+            left: 20%;
+            font-size: 70px;
+            color: var(--warning);
+            animation-duration: 40s;
+        }
+        
+        @keyframes float-finance {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
         .container {
             display: grid;
             grid-template-columns: 240px 1fr;
             min-height: 100vh;
         }
+        
         /* Sidebar Styles */
         .sidebar {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             padding: 20px;
             border-right: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 10;
             transition: var(--transition);
         }
+        
         .sidebar-header {
             display: flex;
             align-items: center;
@@ -144,15 +410,18 @@
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+        
         .logo i {
             color: var(--primary);
             font-size: 24px;
         }
+        
         .logo h1 {
             font-size: 20px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -161,6 +430,7 @@
             color: transparent;
             font-weight: 700;
         }
+        
         .sidebar-toggle {
             display: none;
             background: none;
@@ -170,14 +440,17 @@
             cursor: pointer;
             transition: var(--transition);
         }
+        
         .sidebar-toggle:hover {
             color: var(--primary);
         }
+        
         .menu {
             display: flex;
             flex-direction: column;
             gap: 5px;
         }
+        
         .menu-item {
             display: flex;
             align-items: center;
@@ -189,52 +462,62 @@
             text-decoration: none;
             color: var(--text-dark);
         }
+        
         .menu-item:hover {
-            background-color: var(--bg-lighter);
+            background-color: rgba(42, 42, 62, 0.7);
             color: var(--text);
         }
+        
         .menu-item.active {
-            background-color: rgba(0, 163, 255, 0.1);
+            background-color: rgba(0, 163, 255, 0.15);
             color: var(--primary);
         }
+        
         .menu-item i {
             font-size: 18px;
         }
+        
         /* Main Content Styles */
         .main-content {
             padding: 20px 30px;
             position: relative;
         }
+        
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
         }
+        
         .greeting h2 {
             font-size: 24px;
             font-weight: 600;
         }
+        
         .greeting p {
             color: var(--text-dark);
             font-size: 14px;
         }
+        
         .user-profile {
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
         }
+        
         .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
         }
+        
         /* Cards Grid */
         .cards-grid {
             display: grid;
@@ -242,19 +525,24 @@
             gap: 20px;
             margin-bottom: 30px;
         }
+        
         .card {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 20px;
             transition: var(--transition);
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 163, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 163, 255, 0.2);
         }
+        
         .card::before {
             content: '';
             position: absolute;
@@ -266,9 +554,11 @@
             opacity: 0;
             transition: var(--transition);
         }
+        
         .card:hover::before {
             opacity: 1;
         }
+        
         .card-title {
             display: flex;
             justify-content: space-between;
@@ -277,48 +567,60 @@
             color: var(--text-dark);
             font-size: 14px;
         }
+        
         .card-title i {
             font-size: 20px;
         }
+        
         .card-value {
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 5px;
         }
+        
         .card-income .card-value {
             color: var(--success);
         }
+        
         .card-expense .card-value {
             color: var(--danger);
         }
+        
         .card-change {
             font-size: 12px;
             color: var(--text-dark);
         }
+        
         /* Chart Container */
         .chart-container {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 30px;
             box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .chart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
+        
         .chart-title {
             font-size: 18px;
             font-weight: 600;
         }
+        
         .chart-period {
             display: flex;
             gap: 10px;
         }
+        
         .period-btn {
-            background-color: var(--bg-lighter);
+            background-color: rgba(42, 42, 62, 0.7);
             border: none;
             color: var(--text-dark);
             padding: 5px 15px;
@@ -327,20 +629,23 @@
             transition: var(--transition);
             font-size: 12px;
         }
+        
         .period-btn.active {
-            background-color: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: white;
         }
+        
         .chart-placeholder {
             height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.5);
             border-radius: var(--border-radius);
             color: var(--text-dark);
             font-size: 14px;
         }
+        
         /* Recent Transactions */
         .section-title {
             font-size: 18px;
@@ -350,15 +655,20 @@
             align-items: center;
             gap: 10px;
         }
+        
         .section-title i {
             color: var(--primary);
         }
+        
         .transactions-list {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .transaction-item {
             display: grid;
             grid-template-columns: 40px 1fr 100px 100px 60px;
@@ -367,12 +677,15 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: var(--transition);
         }
+        
         .transaction-item:last-child {
             border-bottom: none;
         }
+        
         .transaction-item:hover {
-            background-color: var(--bg-lighter);
+            background-color: rgba(42, 42, 62, 0.5);
         }
+        
         .transaction-icon {
             width: 36px;
             height: 36px;
@@ -383,48 +696,60 @@
             color: white;
             font-size: 14px;
         }
+        
         .transaction-icon.income {
             background-color: var(--success);
         }
+        
         .transaction-icon.expense {
             background-color: var(--danger);
         }
+        
         .transaction-icon.transfer {
             background-color: var(--warning);
         }
+        
         .transaction-details {
             display: flex;
             flex-direction: column;
             gap: 3px;
         }
+        
         .transaction-category {
             font-weight: 600;
             font-size: 14px;
         }
+        
         .transaction-account {
             font-size: 12px;
             color: var(--text-dark);
         }
+        
         .transaction-amount {
             font-weight: 600;
             text-align: right;
         }
+        
         .transaction-amount.income {
             color: var(--success);
         }
+        
         .transaction-amount.expense {
             color: var(--danger);
         }
+        
         .transaction-date {
             font-size: 12px;
             color: var(--text-dark);
             text-align: center;
         }
+        
         .transaction-actions {
             display: flex;
             gap: 10px;
             justify-content: flex-end;
         }
+        
         .action-btn {
             background: none;
             border: none;
@@ -438,57 +763,70 @@
             justify-content: center;
             border-radius: 4px;
         }
+        
         .action-btn:hover {
             color: var(--primary);
             background-color: rgba(255, 255, 255, 0.05);
         }
+        
         /* Goals Section */
         .goals-list {
             display: grid;
             gap: 15px;
         }
+        
         .goal-item {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 15px;
             box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .goal-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
+        
         .goal-title {
             font-weight: 600;
         }
+        
         .goal-amount {
             color: var(--primary);
             font-weight: 600;
         }
+        
         .progress-container {
             height: 8px;
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.5);
             border-radius: 4px;
             margin-bottom: 10px;
             overflow: hidden;
         }
+        
         .progress-bar {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 4px;
             transition: width 0.5s ease;
         }
+        
         .goal-footer {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
             color: var(--text-dark);
         }
+        
         .goal-actions {
             display: flex;
             gap: 10px;
             margin-top: 10px;
         }
+        
         .goal-btn {
             padding: 5px 10px;
             border-radius: var(--border-radius);
@@ -497,27 +835,34 @@
             font-size: 12px;
             transition: var(--transition);
         }
+        
         .goal-btn.setor {
-            background-color: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: white;
         }
+        
         .goal-btn.setor:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(90deg, var(--primary-dark), #6a1b9a);
         }
+        
         .goal-btn.edit {
-            background-color: var(--bg-lighter);
+            background-color: rgba(42, 42, 62, 0.7);
             color: var(--text);
         }
+        
         .goal-btn.edit:hover {
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.7);
         }
+        
         .goal-btn.delete {
             background-color: var(--danger);
             color: white;
         }
+        
         .goal-btn.delete:hover {
             background-color: #d50000;
         }
+        
         /* Accounts & Categories Section */
         .accounts-grid, .categories-grid {
             display: grid;
@@ -525,22 +870,28 @@
             gap: 15px;
             margin-bottom: 30px;
         }
+        
         .account-card, .category-card {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 15px;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .account-card:hover, .category-card:hover {
             transform: translateY(-3px);
         }
+        
         .account-header, .category-header {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 10px;
         }
+        
         .account-icon, .category-icon {
             width: 36px;
             height: 36px;
@@ -551,41 +902,51 @@
             background-color: rgba(0, 163, 255, 0.1);
             color: var(--primary);
         }
+        
         .account-name, .category-name {
             font-weight: 600;
         }
+        
         .account-balance {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 5px;
         }
+        
         .account-details, .category-details {
             font-size: 12px;
             color: var(--text-dark);
         }
+        
         .account-actions, .category-actions {
             display: flex;
             gap: 10px;
             margin-top: 10px;
         }
+        
         /* Settings Section */
         .settings-form {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 20px;
             box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
+        
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
             }
         }
+        
         /* Add Transaction Button */
         .add-transaction-btn {
             position: fixed;
@@ -606,10 +967,12 @@
             transition: var(--transition);
             z-index: 100;
         }
+        
         .add-transaction-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(0, 163, 255, 0.4);
         }
+        
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
@@ -626,12 +989,15 @@
             visibility: hidden;
             transition: var(--transition);
         }
+        
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
+        
         .modal {
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.9);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             width: 100%;
             max-width: 500px;
@@ -640,10 +1006,13 @@
             transition: var(--transition);
             max-height: 90vh;
             overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         .modal-overlay.active .modal {
             transform: translateY(0);
         }
+        
         .modal-header {
             padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -651,10 +1020,12 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .modal-title {
             font-size: 18px;
             font-weight: 600;
         }
+        
         .modal-close {
             background: none;
             border: none;
@@ -663,74 +1034,89 @@
             cursor: pointer;
             transition: var(--transition);
         }
+        
         .modal-close:hover {
             color: var(--danger);
         }
+        
         .modal-body {
             padding: 20px;
         }
+        
         .form-group {
             margin-bottom: 20px;
         }
+        
         .form-label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
             color: var(--text-dark);
         }
+        
         .form-control {
             width: 100%;
             padding: 12px 15px;
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
             color: var(--text);
             font-size: 14px;
             transition: var(--transition);
         }
+        
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(0, 163, 255, 0.2);
         }
+        
         .radio-group {
             display: flex;
             gap: 15px;
             margin-bottom: 15px;
         }
+        
         .radio-option {
             display: none;
         }
+        
         .radio-label {
             flex: 1;
             padding: 12px;
             text-align: center;
             border-radius: var(--border-radius);
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.7);
             cursor: pointer;
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         .radio-option:checked + .radio-label {
-            background-color: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: white;
             border-color: var(--primary);
         }
+        
         .radio-label.income:hover {
             border-color: var(--success);
         }
+        
         .radio-label.expense:hover {
             border-color: var(--danger);
         }
+        
         .radio-label.transfer:hover {
             border-color: var(--warning);
         }
+        
         .form-actions {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
             margin-top: 30px;
         }
+        
         .btn {
             padding: 10px 20px;
             border-radius: var(--border-radius);
@@ -739,34 +1125,42 @@
             font-weight: 500;
             transition: var(--transition);
         }
+        
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: white;
         }
+        
         .btn-primary:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(90deg, var(--primary-dark), #6a1b9a);
         }
+        
         .btn-secondary {
-            background-color: var(--bg-lighter);
+            background-color: rgba(42, 42, 62, 0.7);
             color: var(--text);
         }
+        
         .btn-secondary:hover {
-            background-color: var(--bg);
+            background-color: rgba(18, 18, 18, 0.7);
         }
+        
         .btn-danger {
             background-color: var(--danger);
             color: white;
         }
+        
         .btn-danger:hover {
             background-color: #d50000;
         }
+        
         /* Toast Notification */
         .toast {
             position: fixed;
             top: 20px;
             right: 20px;
             padding: 15px 20px;
-            background-color: var(--bg-light);
+            background-color: rgba(30, 30, 46, 0.9);
+            backdrop-filter: blur(10px);
             border-left: 4px solid var(--success);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -776,17 +1170,22 @@
             transform: translateX(150%);
             transition: var(--transition);
             z-index: 1100;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .toast.show {
             transform: translateX(0);
         }
+        
         .toast i {
             color: var(--success);
             font-size: 20px;
         }
+        
         .toast-message {
             font-size: 14px;
         }
+        
         .toast-close {
             margin-left: 15px;
             background: none;
@@ -794,6 +1193,7 @@
             color: var(--text-dark);
             cursor: pointer;
         }
+        
         /* Responsive Styles */
         @media (max-width: 992px) {
             .container {
@@ -828,6 +1228,7 @@
                 cursor: pointer;
             }
         }
+        
         @media (max-width: 768px) {
             .transaction-item {
                 grid-template-columns: 40px 1fr 100px;
@@ -846,6 +1247,7 @@
                 margin-top: 5px;
             }
         }
+        
         @media (max-width: 576px) {
             .cards-grid {
                 grid-template-columns: 1fr;
@@ -857,45 +1259,56 @@
                 grid-template-columns: 1fr;
             }
         }
+        
         /* Animation Classes */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        
         .fade-in {
             animation: fadeIn 0.5s ease forwards;
         }
+        
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
+        
         ::-webkit-scrollbar-track {
-            background: var(--bg);
+            background: rgba(18, 18, 18, 0.5);
         }
+        
         ::-webkit-scrollbar-thumb {
             background: var(--primary);
             border-radius: 4px;
         }
+        
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
         }
+        
         /* Hidden class for page switching */
         .page {
             display: none;
         }
+        
         .page.active {
             display: block;
             animation: fadeIn 0.3s ease;
         }
+        
         /* Categories Section Styles */
         .categories-section {
             margin-bottom: 30px;
         }
+        
         .categories-section h3 {
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         /* Sidebar overlay for mobile */
         .sidebar-overlay {
             position: fixed;
@@ -909,6 +1322,7 @@
             visibility: hidden;
             transition: var(--transition);
         }
+        
         .sidebar-overlay.active {
             opacity: 1;
             visibility: visible;
@@ -916,8 +1330,47 @@
     </style>
 </head>
 <body>
+    <!-- Finance Background Elements -->
+    <div class="finance-bg">
+        <div class="finance-element"><i class="fas fa-coins"></i></div>
+        <div class="finance-element"><i class="fas fa-chart-line"></i></div>
+        <div class="finance-element"><i class="fas fa-wallet"></i></div>
+        <div class="finance-element"><i class="fas fa-piggy-bank"></i></div>
+    </div>
+    
+    <!-- Update Popup -->
+    <div class="update-popup" id="updatePopup">
+        <div class="update-content">
+            <div class="update-icon">
+                <i class="fas fa-sparkles"></i>
+            </div>
+            <h2 class="update-title">Aplikasi Telah Diperbarui!</h2>
+            <p class="update-message">NeonFinance kini hadir dengan tampilan baru yang lebih menarik dan fitur yang lebih baik untuk mengelola keuangan Anda.</p>
+            <div class="update-features">
+                <div class="update-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Desain UI yang lebih modern dan menarik</span>
+                </div>
+                <div class="update-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Latar belakang keuangan yang lebih profesional</span>
+                </div>
+                <div class="update-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Peningkatan performa dan stabilitas</span>
+                </div>
+            </div>
+            <button class="update-btn" id="closeUpdatePopup">Mulai Menggunakan</button>
+        </div>
+    </div>
+    
     <!-- Auth Container (Login/Register) -->
     <div class="auth-container" id="authContainer">
+        <div class="floating-coins">
+            <div class="coin"></div>
+            <div class="coin"></div>
+            <div class="coin"></div>
+        </div>
         <div class="auth-box">
             <div class="auth-title">NeonFinance</div>
             
@@ -962,6 +1415,7 @@
             </form>
         </div>
     </div>
+    
     <!-- Main App Container (Hidden by default) -->
     <div class="container hidden" id="appContainer">
         <!-- Sidebar -->
@@ -1006,8 +1460,10 @@
                 </a>
             </div>
         </div>
+        
         <!-- Sidebar Overlay -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
         <!-- Main Content -->
         <div class="main-content">
             <!-- Header -->
@@ -1023,6 +1479,7 @@
                     <div class="user-avatar" id="userAvatar">A</div>
                 </div>
             </div>
+            
             <!-- Dashboard Page -->
             <div class="page active" id="dashboard-page">
                 <!-- Summary Cards -->
@@ -1052,6 +1509,7 @@
                         <div class="card-change">Bulan ini</div>
                     </div>
                 </div>
+                
                 <!-- Chart Section -->
                 <div class="chart-container">
                     <div class="chart-header">
@@ -1066,6 +1524,7 @@
                         <canvas id="incomeExpenseChart"></canvas>
                     </div>
                 </div>
+                
                 <!-- Recent Transactions -->
                 <div class="section-title">
                     <i class="fas fa-history"></i>
@@ -1075,6 +1534,7 @@
                     <!-- Transactions will be added here dynamically -->
                 </div>
             </div>
+            
             <!-- Transactions Page -->
             <div class="page" id="transactions-page">
                 <div class="section-title">
@@ -1085,6 +1545,7 @@
                     <!-- All transactions will be added here dynamically -->
                 </div>
             </div>
+            
             <!-- Goals Page -->
             <div class="page" id="goals-page">
                 <div class="section-title">
@@ -1096,6 +1557,7 @@
                     <!-- Goals will be added here dynamically -->
                 </div>
             </div>
+            
             <!-- Accounts Page -->
             <div class="page" id="accounts-page">
                 <div class="section-title">
@@ -1107,6 +1569,7 @@
                     <!-- Accounts will be added here dynamically -->
                 </div>
             </div>
+            
             <!-- Categories Page -->
             <div class="page" id="categories-page">
                 <div class="section-title">
@@ -1129,6 +1592,7 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Settings Page -->
             <div class="page" id="settings-page">
                 <div class="section-title">
@@ -1167,7 +1631,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nomor E-Wallet</label>
-                        <div style="background-color: var(--bg); padding: 15px; border-radius: var(--border-radius);">
+                        <div style="background-color: rgba(18, 18, 18, 0.5); padding: 15px; border-radius: var(--border-radius);">
                             <div class="form-group" style="margin-bottom: 15px;">
                                 <label for="danaNumber" class="form-label">DANA</label>
                                 <input type="text" id="danaNumber" class="form-control" placeholder="081234567890">
@@ -1194,12 +1658,14 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Add Transaction Button -->
             <button class="add-transaction-btn" id="addTransactionBtn">
                 <i class="fas fa-plus"></i>
             </button>
         </div>
     </div>
+    
     <!-- Add Transaction Modal -->
     <div class="modal-overlay" id="transactionModal">
         <div class="modal">
@@ -1257,6 +1723,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Add Goal Modal -->
     <div class="modal-overlay" id="goalModal">
         <div class="modal">
@@ -1298,6 +1765,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Add Account Modal -->
     <div class="modal-overlay" id="accountModal">
         <div class="modal">
@@ -1342,12 +1810,13 @@
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" id="cancelAccountBtn">Batal</button>
-                        <button type="submit" class="btn-primary">Simpan Akun</button>
+                        <button type="submit" class="btn btn-primary">Simpan Akun</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    
     <!-- Add/Edit Category Modal -->
     <div class="modal-overlay" id="categoryModal">
         <div class="modal">
@@ -1406,176 +1875,29 @@
             </div>
         </div>
     </div>
+    
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span class="toast-message" id="toastMessage">Transaksi berhasil ditambahkan!</span>
         <button class="toast-close">&times;</button>
     </div>
-<script>
-    // Data Awal
-    let transactions = [];
-    let goals = [];
-    let accounts = [
-        {
-            id: 1,
-            name: 'Dompet',
-            type: 'cash',
-            balance: 0,
-            currency: 'IDR',
-            description: 'Uang tunai'
-        }
-    ];
-    let categories = [
-        {
-            id: 1,
-            name: 'Gaji',
-            type: 'income',
-            icon: 'money-bill',
-            color: '#00c853'
-        },
-        {
-            id: 2,
-            name: 'Makanan',
-            type: 'expense',
-            icon: 'utensils',
-            color: '#ff1744'
-        },
-        {
-            id: 3,
-            name: 'Bonus',
-            type: 'income',
-            icon: 'gift',
-            color: '#00c853'
-        },
-        {
-            id: 4,
-            name: 'Investasi',
-            type: 'income',
-            icon: 'chart-line',
-            color: '#00c853'
-        },
-        {
-            id: 5,
-            name: 'Transportasi',
-            type: 'expense',
-            icon: 'car',
-            color: '#ff1744'
-        },
-        {
-            id: 6,
-            name: 'Belanja',
-            type: 'expense',
-            icon: 'shopping-cart',
-            color: '#ff1744'
-        },
-        {
-            id: 7,
-            name: 'Hiburan',
-            type: 'expense',
-            icon: 'game',
-            color: '#ff1744'
-        },
-        {
-            id: 8,
-            name: 'Kesehatan',
-            type: 'expense',
-            icon: 'heart',
-            color: '#ff1744'
-        }
-    ];
-    // DOM Elements
-    const authContainer = document.getElementById('authContainer');
-    const appContainer = document.getElementById('appContainer');
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    const showRegister = document.getElementById('showRegister');
-    const showLogin = document.getElementById('showLogin');
-    const logoutBtn = document.getElementById('logoutBtn');
     
-    const menuItems = document.querySelectorAll('.menu-item');
-    const pages = document.querySelectorAll('.page');
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-    const sidebar = document.getElementById('sidebar');
-    const currentDateEl = document.getElementById('currentDate');
-    const userNameEl = document.getElementById('userName');
-    const userAvatar = document.getElementById('userAvatar');
-    const totalBalanceEl = document.getElementById('totalBalance');
-    const totalIncomeEl = document.getElementById('totalIncome');
-    const totalExpenseEl = document.getElementById('totalExpense');
-    const transactionsList = document.getElementById('transactionsList');
-    const allTransactionsList = document.getElementById('allTransactionsList');
-    const goalsList = document.getElementById('goalsList');
-    const accountsGrid = document.getElementById('accountsGrid');
-    const incomeCategoriesGrid = document.getElementById('incomeCategoriesGrid');
-    const expenseCategoriesGrid = document.getElementById('expenseCategoriesGrid');
-    const addTransactionBtn = document.getElementById('addTransactionBtn');
-    const transactionModal = document.getElementById('transactionModal');
-    const modalClose = document.getElementById('modalClose');
-    const cancelTransactionBtn = document.getElementById('cancelTransactionBtn');
-    const transactionForm = document.getElementById('transactionForm');
-    const typeRadios = document.querySelectorAll('input[name="type"]');
-    const categorySelect = document.getElementById('category');
-    const accountSelect = document.getElementById('account');
-    const addGoalBtn = document.getElementById('addGoalBtn');
-    const goalModal = document.getElementById('goalModal');
-    const goalModalClose = document.getElementById('goalModalClose');
-    const cancelGoalBtn = document.getElementById('cancelGoalBtn');
-    const goalForm = document.getElementById('goalForm');
-    const addAccountBtn = document.getElementById('addAccountBtn');
-    const accountModal = document.getElementById('accountModal');
-    const accountModalClose = document.getElementById('accountModalClose');
-    const cancelAccountBtn = document.getElementById('cancelAccountBtn');
-    const accountForm = document.getElementById('accountForm');
-    const addCategoryBtn = document.getElementById('addCategoryBtn');
-    const categoryModal = document.getElementById('categoryModal');
-    const categoryModalClose = document.getElementById('categoryModalClose');
-    const cancelCategoryBtn = document.getElementById('cancelCategoryBtn');
-    const categoryForm = document.getElementById('categoryForm');
-    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-    const exportDataBtn = document.getElementById('exportDataBtn');
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    const toastClose = document.querySelector('.toast-close');
-    const periodBtns = document.querySelectorAll('.period-btn');
-    const incomeExpenseChartCtx = document.getElementById('incomeExpenseChart').getContext('2d');
-    let incomeExpenseChart;
-    // Check if user is logged in
-    function checkAuth() {
-        const user = localStorage.getItem('currentUser');
-        if (user) {
-            const userData = JSON.parse(localStorage.getItem('user_' + user));
-            if (userData) {
-                loadUserData(userData);
-                authContainer.classList.add('hidden');
-                appContainer.classList.remove('hidden');
-                return;
+    <script>
+        // Data Awal
+        let transactions = [];
+        let goals = [];
+        let accounts = [
+            {
+                id: 1,
+                name: 'Dompet',
+                type: 'cash',
+                balance: 0,
+                currency: 'IDR',
+                description: 'Uang tunai'
             }
-        }
-        authContainer.classList.remove('hidden');
-        appContainer.classList.add('hidden');
-    }
-    // Load user data from localStorage
-    function loadUserData(userData) {
-        // Set user info
-        userNameEl.textContent = userData.name;
-        userAvatar.textContent = userData.name.charAt(0).toUpperCase();
-        document.getElementById('userNameInput').value = userData.name;
-        document.getElementById('userEmail').value = userData.email;
-        // Load transactions, accounts, goals, categories from localStorage
-        transactions = userData.transactions || [];
-        accounts = userData.accounts || [{
-            id: 1,
-            name: 'Dompet',
-            type: 'cash',
-            balance: 0,
-            currency: 'IDR',
-            description: 'Uang tunai'
-        }];
-        goals = userData.goals || [];
-        categories = userData.categories || [
+        ];
+        let categories = [
             {
                 id: 1,
                 name: 'Gaji',
@@ -1633,332 +1955,199 @@
                 color: '#ff1744'
             }
         ];
-    }
-    // Save user data to localStorage
-    function saveUserData(email) {
-        const userData = {
-            name: userNameEl.textContent,
-            email: email,
-            phone: document.getElementById('registerPhone').value,
-            transactions: transactions,
-            accounts: accounts,
-            goals: goals,
-            categories: categories
-        };
-        localStorage.setItem('user_' + email, JSON.stringify(userData));
-    }
-    // Initialize the app
-    function init() {
-        checkAuth();
-        // Set current date
-        const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        currentDateEl.textContent = now.toLocaleDateString('id-ID', options);
-        // Initialize chart
-        initChart();
-        // Load data
-        updateDashboard();
-        renderTransactions();
-        renderAllTransactions();
-        renderGoals();
-        renderAccounts();
-        renderCategories();
-        // Set event listeners
-        setupEventListeners();
-    }
-    // Initialize the chart
-    function initChart() {
-        incomeExpenseChart = new Chart(incomeExpenseChartCtx, {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [
-                    {
-                        label: 'Pemasukan',
-                        backgroundColor: '#00c853',
-                        data: []
-                    },
-                    {
-                        label: 'Pengeluaran',
-                        backgroundColor: '#ff1744',
-                        data: []
+        
+        // DOM Elements
+        const authContainer = document.getElementById('authContainer');
+        const appContainer = document.getElementById('appContainer');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const updatePopup = document.getElementById('updatePopup');
+        const closeUpdatePopup = document.getElementById('closeUpdatePopup');
+        
+        const menuItems = document.querySelectorAll('.menu-item');
+        const pages = document.querySelectorAll('.page');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebar = document.getElementById('sidebar');
+        const currentDateEl = document.getElementById('currentDate');
+        const userNameEl = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const totalBalanceEl = document.getElementById('totalBalance');
+        const totalIncomeEl = document.getElementById('totalIncome');
+        const totalExpenseEl = document.getElementById('totalExpense');
+        const transactionsList = document.getElementById('transactionsList');
+        const allTransactionsList = document.getElementById('allTransactionsList');
+        const goalsList = document.getElementById('goalsList');
+        const accountsGrid = document.getElementById('accountsGrid');
+        const incomeCategoriesGrid = document.getElementById('incomeCategoriesGrid');
+        const expenseCategoriesGrid = document.getElementById('expenseCategoriesGrid');
+        const addTransactionBtn = document.getElementById('addTransactionBtn');
+        const transactionModal = document.getElementById('transactionModal');
+        const modalClose = document.getElementById('modalClose');
+        const cancelTransactionBtn = document.getElementById('cancelTransactionBtn');
+        const transactionForm = document.getElementById('transactionForm');
+        const typeRadios = document.querySelectorAll('input[name="type"]');
+        const categorySelect = document.getElementById('category');
+        const accountSelect = document.getElementById('account');
+        const addGoalBtn = document.getElementById('addGoalBtn');
+        const goalModal = document.getElementById('goalModal');
+        const goalModalClose = document.getElementById('goalModalClose');
+        const cancelGoalBtn = document.getElementById('cancelGoalBtn');
+        const goalForm = document.getElementById('goalForm');
+        const addAccountBtn = document.getElementById('addAccountBtn');
+        const accountModal = document.getElementById('accountModal');
+        const accountModalClose = document.getElementById('accountModalClose');
+        const cancelAccountBtn = document.getElementById('cancelAccountBtn');
+        const accountForm = document.getElementById('accountForm');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const categoryModal = document.getElementById('categoryModal');
+        const categoryModalClose = document.getElementById('categoryModalClose');
+        const cancelCategoryBtn = document.getElementById('cancelCategoryBtn');
+        const categoryForm = document.getElementById('categoryForm');
+        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const toastClose = document.querySelector('.toast-close');
+        const periodBtns = document.querySelectorAll('.period-btn');
+        const incomeExpenseChartCtx = document.getElementById('incomeExpenseChart').getContext('2d');
+        let incomeExpenseChart;
+        
+        // Check if user is logged in
+        function checkAuth() {
+            const user = localStorage.getItem('currentUser');
+            if (user) {
+                const userData = JSON.parse(localStorage.getItem('user_' + user));
+                if (userData) {
+                    loadUserData(userData);
+                    authContainer.classList.add('hidden');
+                    appContainer.classList.remove('hidden');
+                    
+                    // Show update popup if it hasn't been shown before
+                    const updateShown = localStorage.getItem('updateShown');
+                    if (!updateShown) {
+                        setTimeout(() => {
+                            updatePopup.classList.add('active');
+                            localStorage.setItem('updateShown', 'true');
+                        }, 1000);
                     }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return 'Rp' + value.toLocaleString('id-ID');
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            color: '#e0e0e0'
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                label += 'Rp' + context.raw.toLocaleString('id-ID');
-                                return label;
-                            }
-                        }
-                    }
+                    return;
                 }
             }
-        });
-    }
-    // Update chart data
-    function updateChart(period = 'month') {
-        const now = new Date();
-        let labels = [];
-        let incomeData = [];
-        let expenseData = [];
-        
-        if (period === 'month') {
-            // Last 30 days
-            for (let i = 29; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(date.getDate() - i);
-                labels.push(date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }));
-                
-                const dateStr = date.toISOString().split('T')[0];
-                const dayIncome = transactions
-                    .filter(t => t.type === 'income' && t.date === dateStr)
-                    .reduce((sum, t) => sum + t.amount, 0);
-                const dayExpense = transactions
-                    .filter(t => t.type === 'expense' && t.date === dateStr)
-                    .reduce((sum, t) => sum + t.amount, 0);
-                
-                incomeData.push(dayIncome);
-                expenseData.push(dayExpense);
-            }
-        } else if (period === 'week') {
-            // Last 7 days
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(date.getDate() - i);
-                labels.push(date.toLocaleDateString('id-ID', { weekday: 'short' }));
-                
-                const dateStr = date.toISOString().split('T')[0];
-                const dayIncome = transactions
-                    .filter(t => t.type === 'income' && t.date === dateStr)
-                    .reduce((sum, t) => sum + t.amount, 0);
-                const dayExpense = transactions
-                    .filter(t => t.type === 'expense' && t.date === dateStr)
-                    .reduce((sum, t) => sum + t.amount, 0);
-                
-                incomeData.push(dayIncome);
-                expenseData.push(dayExpense);
-            }
-        } else if (period === 'year') {
-            // Last 12 months
-            for (let i = 11; i >= 0; i--) {
-                const date = new Date();
-                date.setMonth(date.getMonth() - i);
-                labels.push(date.toLocaleDateString('id-ID', { month: 'short' }));
-                
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const monthIncome = transactions
-                    .filter(t => {
-                        if (t.type !== 'income') return false;
-                        const tDate = new Date(t.date);
-                        return tDate.getMonth() + 1 === month && tDate.getFullYear() === year;
-                    })
-                    .reduce((sum, t) => sum + t.amount, 0);
-                const monthExpense = transactions
-                    .filter(t => {
-                        if (t.type !== 'expense') return false;
-                        const tDate = new Date(t.date);
-                        return tDate.getMonth() + 1 === month && tDate.getFullYear() === year;
-                    })
-                    .reduce((sum, t) => sum + t.amount, 0);
-                
-                incomeData.push(monthIncome);
-                expenseData.push(monthExpense);
-            }
+            authContainer.classList.remove('hidden');
+            appContainer.classList.add('hidden');
         }
         
-        incomeExpenseChart.data.labels = labels;
-        incomeExpenseChart.data.datasets[0].data = incomeData;
-        incomeExpenseChart.data.datasets[1].data = expenseData;
-        incomeExpenseChart.update();
-    }
-    // Set up all event listeners
-    function setupEventListeners() {
-        // Auth event listeners
-        showRegister.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginForm.classList.add('hidden');
-            registerForm.classList.remove('hidden');
-        });
-        showLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            registerForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-        });
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simple validation
-            if (!email || !password) {
-                alert('Email dan password harus diisi!');
-                return;
-            }
-            
-            // Check if user exists
-            const userData = localStorage.getItem('user_' + email);
-            if (!userData) {
-                alert('Email tidak terdaftar!');
-                return;
-            }
-            
-            const user = JSON.parse(userData);
-            if (password !== user.password) { // In a real app, use proper password hashing
-                alert('Password salah!');
-                return;
-            }
-            
-            // Login successful
-            localStorage.setItem('currentUser', email);
-            loadUserData(user);
-            authContainer.classList.add('hidden');
-            appContainer.classList.remove('hidden');
-            showToast('Login berhasil!');
-        });
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('registerName').value;
-            const phone = document.getElementById('registerPhone').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            
-            // Simple validation
-            if (!name || !phone || !email || !password) {
-                alert('Semua field harus diisi!');
-                return;
-            }
-            
-            // Check if user already exists
-            if (localStorage.getItem('user_' + email)) {
-                alert('Email sudah terdaftar!');
-                return;
-            }
-            
-            // Create new user
-            const userData = {
-                name: name,
-                email: email,
-                phone: phone,
-                password: password, // In a real app, hash the password
-                transactions: [],
-                accounts: [{
-                    id: 1,
-                    name: 'Dompet',
-                    type: 'cash',
-                    balance: 0,
-                    currency: 'IDR',
-                    description: 'Uang tunai'
-                }],
-                goals: [],
-                categories: [
-                    {
-                        id: 1,
-                        name: 'Gaji',
-                        type: 'income',
-                        icon: 'money-bill',
-                        color: '#00c853'
-                    },
-                    {
-                        id: 2,
-                        name: 'Makanan',
-                        type: 'expense',
-                        icon: 'utensils',
-                        color: '#ff1744'
-                    },
-                    {
-                        id: 3,
-                        name: 'Bonus',
-                        type: 'income',
-                        icon: 'gift',
-                        color: '#00c853'
-                    },
-                    {
-                        id: 4,
-                        name: 'Investasi',
-                        type: 'income',
-                        icon: 'chart-line',
-                        color: '#00c853'
-                    },
-                    {
-                        id: 5,
-                        name: 'Transportasi',
-                        type: 'expense',
-                        icon: 'car',
-                        color: '#ff1744'
-                    },
-                    {
-                        id: 6,
-                        name: 'Belanja',
-                        type: 'expense',
-                        icon: 'shopping-cart',
-                        color: '#ff1744'
-                    },
-                    {
-                        id: 7,
-                        name: 'Hiburan',
-                        type: 'expense',
-                        icon: 'game',
-                        color: '#ff1744'
-                    },
-                    {
-                        id: 8,
-                        name: 'Kesehatan',
-                        type: 'expense',
-                        icon: 'heart',
-                        color: '#ff1744'
-                    }
-                ]
-            };
-            
-            localStorage.setItem('user_' + email, JSON.stringify(userData));
-            localStorage.setItem('currentUser', email);
-            
+        // Load user data from localStorage
+        function loadUserData(userData) {
             // Set user info
-            userNameEl.textContent = name;
-            userAvatar.textContent = name.charAt(0).toUpperCase();
+            userNameEl.textContent = userData.name;
+            userAvatar.textContent = userData.name.charAt(0).toUpperCase();
+            document.getElementById('userNameInput').value = userData.name;
+            document.getElementById('userEmail').value = userData.email;
             
-            // Reset data
-            transactions = [];
-            accounts = userData.accounts;
-            goals = [];
-            categories = userData.categories;
+            // Load transactions, accounts, goals, categories from localStorage
+            transactions = userData.transactions || [];
+            accounts = userData.accounts || [{
+                id: 1,
+                name: 'Dompet',
+                type: 'cash',
+                balance: 0,
+                currency: 'IDR',
+                description: 'Uang tunai'
+            }];
+            goals = userData.goals || [];
+            categories = userData.categories || [
+                {
+                    id: 1,
+                    name: 'Gaji',
+                    type: 'income',
+                    icon: 'money-bill',
+                    color: '#00c853'
+                },
+                {
+                    id: 2,
+                    name: 'Makanan',
+                    type: 'expense',
+                    icon: 'utensils',
+                    color: '#ff1744'
+                },
+                {
+                    id: 3,
+                    name: 'Bonus',
+                    type: 'income',
+                    icon: 'gift',
+                    color: '#00c853'
+                },
+                {
+                    id: 4,
+                    name: 'Investasi',
+                    type: 'income',
+                    icon: 'chart-line',
+                    color: '#00c853'
+                },
+                {
+                    id: 5,
+                    name: 'Transportasi',
+                    type: 'expense',
+                    icon: 'car',
+                    color: '#ff1744'
+                },
+                {
+                    id: 6,
+                    name: 'Belanja',
+                    type: 'expense',
+                    icon: 'shopping-cart',
+                    color: '#ff1744'
+                },
+                {
+                    id: 7,
+                    name: 'Hiburan',
+                    type: 'expense',
+                    icon: 'game',
+                    color: '#ff1744'
+                },
+                {
+                    id: 8,
+                    name: 'Kesehatan',
+                    type: 'expense',
+                    icon: 'heart',
+                    color: '#ff1744'
+                }
+            ];
+        }
+        
+        // Save user data to localStorage
+        function saveUserData(email) {
+            const userData = {
+                name: userNameEl.textContent,
+                email: email,
+                phone: document.getElementById('registerPhone').value,
+                transactions: transactions,
+                accounts: accounts,
+                goals: goals,
+                categories: categories
+            };
+            localStorage.setItem('user_' + email, JSON.stringify(userData));
+        }
+        
+        // Initialize the app
+        function init() {
+            checkAuth();
             
-            // Update UI
+            // Set current date
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            currentDateEl.textContent = now.toLocaleDateString('id-ID', options);
+            
+            // Initialize chart
+            initChart();
+            
+            // Load data
             updateDashboard();
             renderTransactions();
             renderAllTransactions();
@@ -1966,230 +2155,597 @@
             renderAccounts();
             renderCategories();
             
-            // Show app
-            authContainer.classList.add('hidden');
-            appContainer.classList.remove('hidden');
-            showToast('Registrasi berhasil!');
-            
-            // Switch to login form for next time
-            registerForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-            registerForm.reset();
-        });
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('currentUser');
-            checkAuth();
-        });
-        // Menu navigation
-        menuItems.forEach(item => {
-            if (item.id !== 'logoutBtn') {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageId = item.getAttribute('data-page');
-                    switchPage(pageId);
-                    
-                    // Update active menu item
-                    menuItems.forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    
-                    // Close sidebar on mobile after navigation
-                    if (window.innerWidth <= 992) {
-                        closeSidebar();
+            // Set event listeners
+            setupEventListeners();
+        }
+        
+        // Initialize the chart
+        function initChart() {
+            incomeExpenseChart = new Chart(incomeExpenseChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Pemasukan',
+                            backgroundColor: '#00c853',
+                            data: []
+                        },
+                        {
+                            label: 'Pengeluaran',
+                            backgroundColor: '#ff1744',
+                            data: []
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return 'Rp' + value.toLocaleString('id-ID');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#e0e0e0'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += 'Rp' + context.raw.toLocaleString('id-ID');
+                                    return label;
+                                }
+                            }
+                        }
                     }
-                });
-            }
-        });
-        // Mobile menu toggle
-        menuToggle.addEventListener('click', () => {
-            openSidebar();
-        });
-        sidebarToggle.addEventListener('click', () => {
-            closeSidebar();
-        });
-        sidebarOverlay.addEventListener('click', () => {
-            closeSidebar();
-        });
-        // Transaction type change
-        typeRadios.forEach(radio => {
-            radio.addEventListener('change', updateCategoryOptions);
-        });
-        // Chart period buttons
-        periodBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                periodBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateChart(btn.dataset.period);
+                }
             });
-        });
-        // Add transaction
-        addTransactionBtn.addEventListener('click', () => {
-            openModal(transactionModal);
-            // Set today's date as default
-            document.getElementById('date').valueAsDate = new Date();
-            // Populate account dropdown
-            updateAccountOptions();
-            // Update category options based on default type (income)
-            updateCategoryOptions();
-        });
-        // Modal close buttons
-        modalClose.addEventListener('click', () => closeModal(transactionModal));
-        cancelTransactionBtn.addEventListener('click', () => closeModal(transactionModal));
-        goalModalClose.addEventListener('click', () => closeModal(goalModal));
-        cancelGoalBtn.addEventListener('click', () => closeModal(goalModal));
-        accountModalClose.addEventListener('click', () => closeModal(accountModal));
-        cancelAccountBtn.addEventListener('click', () => closeModal(accountModal));
-        categoryModalClose.addEventListener('click', () => closeModal(categoryModal));
-        cancelCategoryBtn.addEventListener('click', () => closeModal(categoryModal));
-        // Form submissions
-        transactionForm.addEventListener('submit', handleTransactionSubmit);
-        goalForm.addEventListener('submit', handleGoalSubmit);
-        accountForm.addEventListener('submit', handleAccountSubmit);
-        categoryForm.addEventListener('submit', handleCategorySubmit);
-        saveSettingsBtn.addEventListener('click', saveSettings);
-        exportDataBtn.addEventListener('click', exportData);
-        // Toast close
-        toastClose.addEventListener('click', () => {
-            toast.classList.remove('show');
-        });
-        // Add goal button
-        addGoalBtn.addEventListener('click', () => {
-            openModal(goalModal);
-            // Set default target date to 3 months from now
-            const targetDate = new Date();
-            targetDate.setMonth(targetDate.getMonth() + 3);
-            document.getElementById('targetDate').valueAsDate = targetDate;
-            // Set current amount to 0
-            document.getElementById('currentAmount').value = '0';
-        });
-        // Add account button
-        addAccountBtn.addEventListener('click', () => {
-            openModal(accountModal);
-            document.getElementById('accountBalance').value = '0';
-        });
-        // Add category button
-        addCategoryBtn.addEventListener('click', () => {
-            openModal(categoryModal);
-            document.getElementById('categoryModalTitle').textContent = 'Tambah Kategori Baru';
-            document.getElementById('saveCategoryBtn').textContent = 'Simpan Kategori';
-            delete categoryForm.dataset.editingId;
-        });
-    }
-    // Function to open sidebar
-    function openSidebar() {
-        sidebar.classList.add('active');
-        sidebarOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    // Function to close sidebar
-    function closeSidebar() {
-        sidebar.classList.remove('active');
-        sidebarOverlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    // Update account dropdown options
-    function updateAccountOptions() {
-        accountSelect.innerHTML = '<option value="">Pilih Akun</option>';
-        accounts.forEach(account => {
-            const option = document.createElement('option');
-            option.value = account.id;
-            option.textContent = account.name;
-            accountSelect.appendChild(option);
-        });
-    }
-    // Update category options based on transaction type
-    function updateCategoryOptions() {
-        const selectedType = document.querySelector('input[name="type"]:checked').value;
-        categorySelect.innerHTML = '<option value="">Pilih Kategori</option>';
-        const filteredCategories = categories.filter(cat => {
-            if (selectedType === 'income') return cat.type === 'income';
-            if (selectedType === 'expense') return cat.type === 'expense';
-            return false;
-        });
-        filteredCategories.forEach(cat => {
-            const option = document.createElement('option');
-            option.value = cat.id;
-            option.textContent = cat.name;
-            categorySelect.appendChild(option);
-        });
-    }
-    // Switch between pages
-    function switchPage(pageId) {
-        pages.forEach(page => {
-            if (page.id === `${pageId}-page`) {
-                page.classList.add('active');
-            } else {
-                page.classList.remove('active');
+        }
+        
+        // Update chart data
+        function updateChart(period = 'month') {
+            const now = new Date();
+            let labels = [];
+            let incomeData = [];
+            let expenseData = [];
+            
+            if (period === 'month') {
+                // Last 30 days
+                for (let i = 29; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    labels.push(date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }));
+                    
+                    const dateStr = date.toISOString().split('T')[0];
+                    const dayIncome = transactions
+                        .filter(t => t.type === 'income' && t.date === dateStr)
+                        .reduce((sum, t) => sum + t.amount, 0);
+                    const dayExpense = transactions
+                        .filter(t => t.type === 'expense' && t.date === dateStr)
+                        .reduce((sum, t) => sum + t.amount, 0);
+                    
+                    incomeData.push(dayIncome);
+                    expenseData.push(dayExpense);
+                }
+            } else if (period === 'week') {
+                // Last 7 days
+                for (let i = 6; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    labels.push(date.toLocaleDateString('id-ID', { weekday: 'short' }));
+                    
+                    const dateStr = date.toISOString().split('T')[0];
+                    const dayIncome = transactions
+                        .filter(t => t.type === 'income' && t.date === dateStr)
+                        .reduce((sum, t) => sum + t.amount, 0);
+                    const dayExpense = transactions
+                        .filter(t => t.type === 'expense' && t.date === dateStr)
+                        .reduce((sum, t) => sum + t.amount, 0);
+                    
+                    incomeData.push(dayIncome);
+                    expenseData.push(dayExpense);
+                }
+            } else if (period === 'year') {
+                // Last 12 months
+                for (let i = 11; i >= 0; i--) {
+                    const date = new Date();
+                    date.setMonth(date.getMonth() - i);
+                    labels.push(date.toLocaleDateString('id-ID', { month: 'short' }));
+                    
+                    const month = date.getMonth() + 1;
+                    const year = date.getFullYear();
+                    const monthIncome = transactions
+                        .filter(t => {
+                            if (t.type !== 'income') return false;
+                            const tDate = new Date(t.date);
+                            return tDate.getMonth() + 1 === month && tDate.getFullYear() === year;
+                        })
+                        .reduce((sum, t) => sum + t.amount, 0);
+                    const monthExpense = transactions
+                        .filter(t => {
+                            if (t.type !== 'expense') return false;
+                            const tDate = new Date(t.date);
+                            return tDate.getMonth() + 1 === month && tDate.getFullYear() === year;
+                        })
+                        .reduce((sum, t) => sum + t.amount, 0);
+                    
+                    incomeData.push(monthIncome);
+                    expenseData.push(monthExpense);
+                }
             }
-        });
-    }
-    // Open modal
-    function openModal(modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    // Close modal
-    function closeModal(modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    // Handle transaction form submission
-    function handleTransactionSubmit(e) {
-        e.preventDefault();
-        
-        const type = document.querySelector('input[name="type"]:checked').value;
-        const amount = parseFloat(document.getElementById('amount').value);
-        const date = document.getElementById('date').value;
-        const accountId = parseInt(document.getElementById('account').value);
-        const categoryId = parseInt(document.getElementById('category').value);
-        const description = document.getElementById('description').value;
-        
-        // Find account and category details
-        const account = accounts.find(acc => acc.id === accountId);
-        const category = categories.find(cat => cat.id === categoryId);
-        
-        if (!account) {
-            showToast('Akun tidak valid!');
-            return;
+            
+            incomeExpenseChart.data.labels = labels;
+            incomeExpenseChart.data.datasets[0].data = incomeData;
+            incomeExpenseChart.data.datasets[1].data = expenseData;
+            incomeExpenseChart.update();
         }
         
-        if (!category) {
-            showToast('Kategori tidak valid!');
-            return;
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Update popup event listener
+            closeUpdatePopup.addEventListener('click', () => {
+                updatePopup.classList.remove('active');
+            });
+            
+            // Auth event listeners
+            showRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            });
+            
+            showLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            });
+            
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple validation
+                if (!email || !password) {
+                    alert('Email dan password harus diisi!');
+                    return;
+                }
+                
+                // Check if user exists
+                const userData = localStorage.getItem('user_' + email);
+                if (!userData) {
+                    alert('Email tidak terdaftar!');
+                    return;
+                }
+                
+                const user = JSON.parse(userData);
+                if (password !== user.password) { // In a real app, use proper password hashing
+                    alert('Password salah!');
+                    return;
+                }
+                
+                // Login successful
+                localStorage.setItem('currentUser', email);
+                loadUserData(user);
+                authContainer.classList.add('hidden');
+                appContainer.classList.remove('hidden');
+                
+                // Show update popup if it hasn't been shown before
+                const updateShown = localStorage.getItem('updateShown');
+                if (!updateShown) {
+                    setTimeout(() => {
+                        updatePopup.classList.add('active');
+                        localStorage.setItem('updateShown', 'true');
+                    }, 1000);
+                }
+                
+                showToast('Login berhasil!');
+            });
+            
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value;
+                const phone = document.getElementById('registerPhone').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                
+                // Simple validation
+                if (!name || !phone || !email || !password) {
+                    alert('Semua field harus diisi!');
+                    return;
+                }
+                
+                // Check if user already exists
+                if (localStorage.getItem('user_' + email)) {
+                    alert('Email sudah terdaftar!');
+                    return;
+                }
+                
+                // Create new user
+                const userData = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    password: password, // In a real app, hash the password
+                    transactions: [],
+                    accounts: [{
+                        id: 1,
+                        name: 'Dompet',
+                        type: 'cash',
+                        balance: 0,
+                        currency: 'IDR',
+                        description: 'Uang tunai'
+                    }],
+                    goals: [],
+                    categories: [
+                        {
+                            id: 1,
+                            name: 'Gaji',
+                            type: 'income',
+                            icon: 'money-bill',
+                            color: '#00c853'
+                        },
+                        {
+                            id: 2,
+                            name: 'Makanan',
+                            type: 'expense',
+                            icon: 'utensils',
+                            color: '#ff1744'
+                        },
+                        {
+                            id: 3,
+                            name: 'Bonus',
+                            type: 'income',
+                            icon: 'gift',
+                            color: '#00c853'
+                        },
+                        {
+                            id: 4,
+                            name: 'Investasi',
+                            type: 'income',
+                            icon: 'chart-line',
+                            color: '#00c853'
+                        },
+                        {
+                            id: 5,
+                            name: 'Transportasi',
+                            type: 'expense',
+                            icon: 'car',
+                            color: '#ff1744'
+                        },
+                        {
+                            id: 6,
+                            name: 'Belanja',
+                            type: 'expense',
+                            icon: 'shopping-cart',
+                            color: '#ff1744'
+                        },
+                        {
+                            id: 7,
+                            name: 'Hiburan',
+                            type: 'expense',
+                            icon: 'game',
+                            color: '#ff1744'
+                        },
+                        {
+                            id: 8,
+                            name: 'Kesehatan',
+                            type: 'expense',
+                            icon: 'heart',
+                            color: '#ff1744'
+                        }
+                    ]
+                };
+                
+                localStorage.setItem('user_' + email, JSON.stringify(userData));
+                localStorage.setItem('currentUser', email);
+                
+                // Set user info
+                userNameEl.textContent = name;
+                userAvatar.textContent = name.charAt(0).toUpperCase();
+                
+                // Reset data
+                transactions = [];
+                accounts = userData.accounts;
+                goals = [];
+                categories = userData.categories;
+                
+                // Update UI
+                updateDashboard();
+                renderTransactions();
+                renderAllTransactions();
+                renderGoals();
+                renderAccounts();
+                renderCategories();
+                
+                // Show app
+                authContainer.classList.add('hidden');
+                appContainer.classList.remove('hidden');
+                
+                // Show update popup
+                setTimeout(() => {
+                    updatePopup.classList.add('active');
+                    localStorage.setItem('updateShown', 'true');
+                }, 1000);
+                
+                showToast('Registrasi berhasil!');
+                
+                // Switch to login form for next time
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                registerForm.reset();
+            });
+            
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                checkAuth();
+            });
+            
+            // Menu navigation
+            menuItems.forEach(item => {
+                if (item.id !== 'logoutBtn') {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const pageId = item.getAttribute('data-page');
+                        switchPage(pageId);
+                        
+                        // Update active menu item
+                        menuItems.forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+                        
+                        // Close sidebar on mobile after navigation
+                        if (window.innerWidth <= 992) {
+                            closeSidebar();
+                        }
+                    });
+                }
+            });
+            
+            // Mobile menu toggle
+            menuToggle.addEventListener('click', () => {
+                openSidebar();
+            });
+            
+            sidebarToggle.addEventListener('click', () => {
+                closeSidebar();
+            });
+            
+            sidebarOverlay.addEventListener('click', () => {
+                closeSidebar();
+            });
+            
+            // Transaction type change
+            typeRadios.forEach(radio => {
+                radio.addEventListener('change', updateCategoryOptions);
+            });
+            
+            // Chart period buttons
+            periodBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    periodBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateChart(btn.dataset.period);
+                });
+            });
+            
+            // Add transaction
+            addTransactionBtn.addEventListener('click', () => {
+                openModal(transactionModal);
+                // Set today's date as default
+                document.getElementById('date').valueAsDate = new Date();
+                // Populate account dropdown
+                updateAccountOptions();
+                // Update category options based on default type (income)
+                updateCategoryOptions();
+            });
+            
+            // Modal close buttons
+            modalClose.addEventListener('click', () => closeModal(transactionModal));
+            cancelTransactionBtn.addEventListener('click', () => closeModal(transactionModal));
+            goalModalClose.addEventListener('click', () => closeModal(goalModal));
+            cancelGoalBtn.addEventListener('click', () => closeModal(goalModal));
+            accountModalClose.addEventListener('click', () => closeModal(accountModal));
+            cancelAccountBtn.addEventListener('click', () => closeModal(accountModal));
+            categoryModalClose.addEventListener('click', () => closeModal(categoryModal));
+            cancelCategoryBtn.addEventListener('click', () => closeModal(categoryModal));
+            
+            // Form submissions
+            transactionForm.addEventListener('submit', handleTransactionSubmit);
+            goalForm.addEventListener('submit', handleGoalSubmit);
+            accountForm.addEventListener('submit', handleAccountSubmit);
+            categoryForm.addEventListener('submit', handleCategorySubmit);
+            saveSettingsBtn.addEventListener('click', saveSettings);
+            exportDataBtn.addEventListener('click', exportData);
+            
+            // Toast close
+            toastClose.addEventListener('click', () => {
+                toast.classList.remove('show');
+            });
+            
+            // Add goal button
+            addGoalBtn.addEventListener('click', () => {
+                openModal(goalModal);
+                // Set default target date to 3 months from now
+                const targetDate = new Date();
+                targetDate.setMonth(targetDate.getMonth() + 3);
+                document.getElementById('targetDate').valueAsDate = targetDate;
+                // Set current amount to 0
+                document.getElementById('currentAmount').value = '0';
+            });
+            
+            // Add account button
+            addAccountBtn.addEventListener('click', () => {
+                openModal(accountModal);
+                document.getElementById('accountBalance').value = '0';
+            });
+            
+            // Add category button
+            addCategoryBtn.addEventListener('click', () => {
+                openModal(categoryModal);
+                document.getElementById('categoryModalTitle').textContent = 'Tambah Kategori Baru';
+                document.getElementById('saveCategoryBtn').textContent = 'Simpan Kategori';
+                delete categoryForm.dataset.editingId;
+            });
         }
         
-        // Check if editing existing transaction
-        const editingId = transactionForm.dataset.editingId;
+        // Function to open sidebar
+        function openSidebar() {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
         
-        if (editingId) {
-            // Find the original transaction
-            const originalTransaction = transactions.find(t => t.id === parseInt(editingId));
-            if (originalTransaction) {
-                // Adjust account balance for the original transaction
-                const originalAccount = accounts.find(acc => acc.id === originalTransaction.account);
-                if (originalAccount) {
-                    if (originalTransaction.type === 'income') {
-                        originalAccount.balance -= originalTransaction.amount;
-                    } else if (originalTransaction.type === 'expense') {
-                        originalAccount.balance += originalTransaction.amount;
+        // Function to close sidebar
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Update account dropdown options
+        function updateAccountOptions() {
+            accountSelect.innerHTML = '<option value="">Pilih Akun</option>';
+            accounts.forEach(account => {
+                const option = document.createElement('option');
+                option.value = account.id;
+                option.textContent = account.name;
+                accountSelect.appendChild(option);
+            });
+        }
+        
+        // Update category options based on transaction type
+        function updateCategoryOptions() {
+            const selectedType = document.querySelector('input[name="type"]:checked').value;
+            categorySelect.innerHTML = '<option value="">Pilih Kategori</option>';
+            const filteredCategories = categories.filter(cat => {
+                if (selectedType === 'income') return cat.type === 'income';
+                if (selectedType === 'expense') return cat.type === 'expense';
+                return false;
+            });
+            filteredCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.name;
+                categorySelect.appendChild(option);
+            });
+        }
+        
+        // Switch between pages
+        function switchPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === `${pageId}-page`) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+        }
+        
+        // Open modal
+        function openModal(modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close modal
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Handle transaction form submission
+        function handleTransactionSubmit(e) {
+            e.preventDefault();
+            
+            const type = document.querySelector('input[name="type"]:checked').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const date = document.getElementById('date').value;
+            const accountId = parseInt(document.getElementById('account').value);
+            const categoryId = parseInt(document.getElementById('category').value);
+            const description = document.getElementById('description').value;
+            
+            // Find account and category details
+            const account = accounts.find(acc => acc.id === accountId);
+            const category = categories.find(cat => cat.id === categoryId);
+            
+            if (!account) {
+                showToast('Akun tidak valid!');
+                return;
+            }
+            
+            if (!category) {
+                showToast('Kategori tidak valid!');
+                return;
+            }
+            
+            // Check if editing existing transaction
+            const editingId = transactionForm.dataset.editingId;
+            
+            if (editingId) {
+                // Find the original transaction
+                const originalTransaction = transactions.find(t => t.id === parseInt(editingId));
+                if (originalTransaction) {
+                    // Adjust account balance for the original transaction
+                    const originalAccount = accounts.find(acc => acc.id === originalTransaction.account);
+                    if (originalAccount) {
+                        if (originalTransaction.type === 'income') {
+                            originalAccount.balance -= originalTransaction.amount;
+                        } else if (originalTransaction.type === 'expense') {
+                            originalAccount.balance += originalTransaction.amount;
+                        }
                     }
                 }
             }
-        }
-        
-        // Update account balance based on transaction type
-        if (type === 'income') {
-            account.balance += amount;
-        } else if (type === 'expense') {
-            account.balance -= amount;
-        }
-        
-        if (editingId) {
-            // Update existing transaction
-            const transactionIndex = transactions.findIndex(t => t.id === parseInt(editingId));
-            if (transactionIndex !== -1) {
-                transactions[transactionIndex] = {
-                    ...transactions[transactionIndex],
+            
+            // Update account balance based on transaction type
+            if (type === 'income') {
+                account.balance += amount;
+            } else if (type === 'expense') {
+                account.balance -= amount;
+            }
+            
+            if (editingId) {
+                // Update existing transaction
+                const transactionIndex = transactions.findIndex(t => t.id === parseInt(editingId));
+                if (transactionIndex !== -1) {
+                    transactions[transactionIndex] = {
+                        ...transactions[transactionIndex],
+                        type,
+                        amount,
+                        date,
+                        account: account.id,
+                        category: category.name,
+                        description,
+                        icon: category.icon
+                    };
+                    showToast('Transaksi berhasil diperbarui!');
+                }
+            } else {
+                // Create new transaction
+                const newTransaction = {
+                    id: transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1,
                     type,
                     amount,
                     date,
@@ -2198,857 +2754,869 @@
                     description,
                     icon: category.icon
                 };
-                showToast('Transaksi berhasil diperbarui!');
+                // Add to transactions array
+                transactions.unshift(newTransaction);
+                showToast('Transaksi berhasil ditambahkan!');
             }
-        } else {
-            // Create new transaction
-            const newTransaction = {
-                id: transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1,
-                type,
-                amount,
-                date,
-                account: account.id,
-                category: category.name,
-                description,
-                icon: category.icon
-            };
-            // Add to transactions array
-            transactions.unshift(newTransaction);
-            showToast('Transaksi berhasil ditambahkan!');
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.transactions = transactions;
+                userData.accounts = accounts;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            updateDashboard();
+            renderTransactions();
+            renderAllTransactions();
+            updateChart();
+            
+            // Close modal and reset form
+            closeModal(transactionModal);
+            transactionForm.reset();
+            delete transactionForm.dataset.editingId;
+            document.querySelector('#transactionModal .modal-title').textContent = 'Tambah Transaksi Baru';
+            document.querySelector('#transactionForm .btn-primary').textContent = 'Simpan Transaksi';
         }
         
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.transactions = transactions;
-            userData.accounts = accounts;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        updateDashboard();
-        renderTransactions();
-        renderAllTransactions();
-        updateChart();
-        
-        // Close modal and reset form
-        closeModal(transactionModal);
-        transactionForm.reset();
-        delete transactionForm.dataset.editingId;
-        document.querySelector('#transactionModal .modal-title').textContent = 'Tambah Transaksi Baru';
-        document.querySelector('#transactionForm .btn-primary').textContent = 'Simpan Transaksi';
-    }
-    // Handle goal form submission
-    function handleGoalSubmit(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('goalName').value;
-        const targetAmount = parseFloat(document.getElementById('targetAmount').value);
-        const currentAmount = parseFloat(document.getElementById('currentAmount').value);
-        const targetDate = document.getElementById('targetDate').value;
-        const priority = document.getElementById('goalPriority').value;
-        
-        // Check if editing existing goal
-        const editingId = goalForm.dataset.editingId;
-        
-        if (editingId) {
-            // Update existing goal
-            const goalIndex = goals.findIndex(g => g.id === parseInt(editingId));
-            if (goalIndex !== -1) {
-                goals[goalIndex] = {
-                    ...goals[goalIndex],
+        // Handle goal form submission
+        function handleGoalSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('goalName').value;
+            const targetAmount = parseFloat(document.getElementById('targetAmount').value);
+            const currentAmount = parseFloat(document.getElementById('currentAmount').value);
+            const targetDate = document.getElementById('targetDate').value;
+            const priority = document.getElementById('goalPriority').value;
+            
+            // Check if editing existing goal
+            const editingId = goalForm.dataset.editingId;
+            
+            if (editingId) {
+                // Update existing goal
+                const goalIndex = goals.findIndex(g => g.id === parseInt(editingId));
+                if (goalIndex !== -1) {
+                    goals[goalIndex] = {
+                        ...goals[goalIndex],
+                        name,
+                        targetAmount,
+                        currentAmount,
+                        targetDate,
+                        priority
+                    };
+                    showToast('Tujuan berhasil diperbarui!');
+                }
+            } else {
+                // Create new goal
+                const newGoal = {
+                    id: goals.length > 0 ? Math.max(...goals.map(g => g.id)) + 1 : 1,
                     name,
                     targetAmount,
                     currentAmount,
                     targetDate,
                     priority
                 };
-                showToast('Tujuan berhasil diperbarui!');
+                goals.push(newGoal);
+                showToast('Tujuan berhasil ditambahkan!');
             }
-        } else {
-            // Create new goal
-            const newGoal = {
-                id: goals.length > 0 ? Math.max(...goals.map(g => g.id)) + 1 : 1,
-                name,
-                targetAmount,
-                currentAmount,
-                targetDate,
-                priority
-            };
-            goals.push(newGoal);
-            showToast('Tujuan berhasil ditambahkan!');
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.goals = goals;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            renderGoals();
+            
+            // Close modal and reset form
+            closeModal(goalModal);
+            goalForm.reset();
+            delete goalForm.dataset.editingId;
+            document.querySelector('#goalModal .modal-title').textContent = 'Tambah Tujuan Baru';
+            document.querySelector('#goalForm .btn-primary').textContent = 'Simpan Tujuan';
         }
         
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.goals = goals;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        renderGoals();
-        
-        // Close modal and reset form
-        closeModal(goalModal);
-        goalForm.reset();
-        delete goalForm.dataset.editingId;
-        document.querySelector('#goalModal .modal-title').textContent = 'Tambah Tujuan Baru';
-        document.querySelector('#goalForm .btn-primary').textContent = 'Simpan Tujuan';
-    }
-    // Handle account form submission
-    function handleAccountSubmit(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('accountName').value;
-        const type = document.getElementById('accountType').value;
-        const balance = parseFloat(document.getElementById('accountBalance').value);
-        const currency = document.getElementById('accountCurrency').value;
-        const description = document.getElementById('accountDescription').value;
-        
-        // Check if editing existing account
-        const editingId = accountForm.dataset.editingId;
-        
-        if (editingId) {
-            // Update existing account
-            const accountIndex = accounts.findIndex(acc => acc.id === parseInt(editingId));
-            if (accountIndex !== -1) {
-                accounts[accountIndex] = {
-                    ...accounts[accountIndex],
+        // Handle account form submission
+        function handleAccountSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('accountName').value;
+            const type = document.getElementById('accountType').value;
+            const balance = parseFloat(document.getElementById('accountBalance').value);
+            const currency = document.getElementById('accountCurrency').value;
+            const description = document.getElementById('accountDescription').value;
+            
+            // Check if editing existing account
+            const editingId = accountForm.dataset.editingId;
+            
+            if (editingId) {
+                // Update existing account
+                const accountIndex = accounts.findIndex(acc => acc.id === parseInt(editingId));
+                if (accountIndex !== -1) {
+                    accounts[accountIndex] = {
+                        ...accounts[accountIndex],
+                        name,
+                        type,
+                        balance,
+                        currency,
+                        description
+                    };
+                    showToast('Akun berhasil diperbarui!');
+                }
+            } else {
+                // Create new account
+                const newAccount = {
+                    id: accounts.length > 0 ? Math.max(...accounts.map(a => a.id)) + 1 : 1,
                     name,
                     type,
                     balance,
                     currency,
                     description
                 };
-                showToast('Akun berhasil diperbarui!');
+                accounts.push(newAccount);
+                showToast('Akun berhasil ditambahkan!');
             }
-        } else {
-            // Create new account
-            const newAccount = {
-                id: accounts.length > 0 ? Math.max(...accounts.map(a => a.id)) + 1 : 1,
-                name,
-                type,
-                balance,
-                currency,
-                description
-            };
-            accounts.push(newAccount);
-            showToast('Akun berhasil ditambahkan!');
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.accounts = accounts;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            updateDashboard();
+            renderAccounts();
+            
+            // Close modal and reset form
+            closeModal(accountModal);
+            accountForm.reset();
+            delete accountForm.dataset.editingId;
+            document.querySelector('#accountModal .modal-title').textContent = 'Tambah Akun Baru';
+            document.querySelector('#accountForm .btn-primary').textContent = 'Simpan Akun';
         }
         
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.accounts = accounts;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        updateDashboard();
-        renderAccounts();
-        
-        // Close modal and reset form
-        closeModal(accountModal);
-        accountForm.reset();
-        delete accountForm.dataset.editingId;
-        document.querySelector('#accountModal .modal-title').textContent = 'Tambah Akun Baru';
-        document.querySelector('#accountForm .btn-primary').textContent = 'Simpan Akun';
-    }
-    // Handle category form submission
-    function handleCategorySubmit(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('categoryName').value;
-        const type = document.getElementById('categoryType').value;
-        const icon = document.getElementById('categoryIcon').value;
-        const color = document.getElementById('categoryColor').value;
-        
-        // Check if editing existing category
-        const editingId = categoryForm.dataset.editingId;
-        
-        if (editingId) {
-            // Update existing category
-            const categoryIndex = categories.findIndex(cat => cat.id === parseInt(editingId));
-            if (categoryIndex !== -1) {
-                categories[categoryIndex] = {
-                    ...categories[categoryIndex],
+        // Handle category form submission
+        function handleCategorySubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('categoryName').value;
+            const type = document.getElementById('categoryType').value;
+            const icon = document.getElementById('categoryIcon').value;
+            const color = document.getElementById('categoryColor').value;
+            
+            // Check if editing existing category
+            const editingId = categoryForm.dataset.editingId;
+            
+            if (editingId) {
+                // Update existing category
+                const categoryIndex = categories.findIndex(cat => cat.id === parseInt(editingId));
+                if (categoryIndex !== -1) {
+                    categories[categoryIndex] = {
+                        ...categories[categoryIndex],
+                        name,
+                        type,
+                        icon,
+                        color
+                    };
+                    showToast('Kategori berhasil diperbarui!');
+                }
+            } else {
+                // Create new category
+                const newCategory = {
+                    id: categories.length > 0 ? Math.max(...categories.map(c => c.id)) + 1 : 1,
                     name,
                     type,
                     icon,
                     color
                 };
-                showToast('Kategori berhasil diperbarui!');
+                categories.push(newCategory);
+                showToast('Kategori berhasil ditambahkan!');
             }
-        } else {
-            // Create new category
-            const newCategory = {
-                id: categories.length > 0 ? Math.max(...categories.map(c => c.id)) + 1 : 1,
-                name,
-                type,
-                icon,
-                color
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.categories = categories;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            renderCategories();
+            
+            // Close modal and reset form
+            closeModal(categoryModal);
+            categoryForm.reset();
+            delete categoryForm.dataset.editingId;
+            document.getElementById('categoryModalTitle').textContent = 'Tambah Kategori Baru';
+            document.getElementById('saveCategoryBtn').textContent = 'Simpan Kategori';
+        }
+        
+        // Save settings
+        function saveSettings() {
+            const name = document.getElementById('userNameInput').value;
+            const email = document.getElementById('userEmail').value;
+            const currency = document.getElementById('currency').value;
+            const dateFormat = document.getElementById('dateFormat').value;
+            
+            // Update user info
+            userNameEl.textContent = name;
+            userAvatar.textContent = name.charAt(0).toUpperCase();
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.name = name;
+                userData.email = email;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Show success message
+            showToast('Pengaturan berhasil disimpan!');
+        }
+        
+        // Export data to Excel
+        function exportData() {
+            // In a real app, this would generate and download an Excel file
+            showToast('Data berhasil diekspor ke Excel!');
+        }
+        
+        // Show toast notification
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Update dashboard summary
+        function updateDashboard() {
+            // Calculate total balance
+            const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
+            totalBalanceEl.textContent = formatCurrency(totalBalance);
+            
+            // Calculate monthly income and expense
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            const monthlyTransactions = transactions.filter(transaction => {
+                const transactionDate = new Date(transaction.date);
+                return transactionDate.getMonth() === currentMonth && 
+                       transactionDate.getFullYear() === currentYear;
+            });
+            const totalIncome = monthlyTransactions
+                .filter(t => t.type === 'income')
+                .reduce((sum, t) => sum + t.amount, 0);
+            const totalExpense = monthlyTransactions
+                .filter(t => t.type === 'expense')
+                .reduce((sum, t) => sum + t.amount, 0);
+            totalIncomeEl.textContent = formatCurrency(totalIncome);
+            totalExpenseEl.textContent = formatCurrency(totalExpense);
+        }
+        
+        // Render recent transactions
+        function renderTransactions() {
+            // Get last 5 transactions
+            const recentTransactions = [...transactions]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+            transactionsList.innerHTML = '';
+            if (recentTransactions.length === 0) {
+                transactionsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada transaksi terakhir</div>';
+                return;
+            }
+            recentTransactions.forEach(transaction => {
+                const transactionEl = document.createElement('div');
+                transactionEl.className = 'transaction-item fade-in';
+                // Determine icon and color based on type
+                let iconClass = '';
+                let amountClass = '';
+                
+                if (transaction.type === 'income') {
+                    iconClass = 'income';
+                    amountClass = 'income';
+                } else if (transaction.type === 'expense') {
+                    iconClass = 'expense';
+                    amountClass = 'expense';
+                } else {
+                    iconClass = 'transfer';
+                }
+                
+                // Format date
+                const transactionDate = new Date(transaction.date);
+                const formattedDate = transactionDate.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+                
+                transactionEl.innerHTML = `
+                    <div class="transaction-icon ${iconClass}">
+                        <i class="fas fa-${transaction.icon || 'question-circle'}"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-category">${transaction.category}</div>
+                        <div class="transaction-account">${getAccountName(transaction.account)}</div>
+                    </div>
+                    <div class="transaction-amount ${amountClass}">${transaction.type === 'expense' ? '-' : '+'}${formatCurrency(transaction.amount)}</div>
+                    <div class="transaction-date">${formattedDate}</div>
+                    <div class="transaction-actions">
+                        <button class="action-btn" onclick="editTransaction(${transaction.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" onclick="deleteTransaction(${transaction.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                transactionsList.appendChild(transactionEl);
+            });
+        }
+        
+        // Render all transactions
+        function renderAllTransactions() {
+            // Sort by date (newest first)
+            const sortedTransactions = [...transactions]
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            allTransactionsList.innerHTML = '';
+            if (sortedTransactions.length === 0) {
+                allTransactionsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada transaksi</div>';
+                return;
+            }
+            sortedTransactions.forEach(transaction => {
+                const transactionEl = document.createElement('div');
+                transactionEl.className = 'transaction-item fade-in';
+                // Determine icon and color based on type
+                let iconClass = '';
+                let amountClass = '';
+                
+                if (transaction.type === 'income') {
+                    iconClass = 'income';
+                    amountClass = 'income';
+                } else if (transaction.type === 'expense') {
+                    iconClass = 'expense';
+                    amountClass = 'expense';
+                } else {
+                    iconClass = 'transfer';
+                }
+                
+                // Format date
+                const transactionDate = new Date(transaction.date);
+                const formattedDate = transactionDate.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+                
+                transactionEl.innerHTML = `
+                    <div class="transaction-icon ${iconClass}">
+                        <i class="fas fa-${transaction.icon || 'question-circle'}"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-category">${transaction.category}</div>
+                        <div class="transaction-account">${getAccountName(transaction.account)}</div>
+                    </div>
+                    <div class="transaction-amount ${amountClass}">${transaction.type === 'expense' ? '-' : '+'}${formatCurrency(transaction.amount)}</div>
+                    <div class="transaction-date">${formattedDate}</div>
+                    <div class="transaction-actions">
+                        <button class="action-btn" onclick="editTransaction(${transaction.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" onclick="deleteTransaction(${transaction.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                allTransactionsList.appendChild(transactionEl);
+            });
+        }
+        
+        // Render goals
+        function renderGoals() {
+            goalsList.innerHTML = '';
+            if (goals.length === 0) {
+                goalsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Anda belum memiliki tujuan keuangan</div>';
+                return;
+            }
+            goals.forEach(goal => {
+                const goalEl = document.createElement('div');
+                goalEl.className = 'goal-item fade-in';
+                // Calculate progress
+                const progress = (goal.currentAmount / goal.targetAmount) * 100;
+                const progressWidth = progress > 100 ? 100 : progress;
+                // Format dates
+                const targetDate = new Date(goal.targetDate);
+                const formattedDate = targetDate.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+                // Days remaining
+                const today = new Date();
+                const timeDiff = targetDate.getTime() - today.getTime();
+                const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                goalEl.innerHTML = `
+                    <div class="goal-header">
+                        <div class="goal-title">${goal.name}</div>
+                        <div class="goal-amount">${formatCurrency(goal.currentAmount)} / ${formatCurrency(goal.targetAmount)}</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${progressWidth}%"></div>
+                    </div>
+                    <div class="goal-footer">
+                        <div>${daysRemaining > 0 ? `${daysRemaining} hari lagi` : 'Telah lewat'}</div>
+                        <div>${formattedDate}</div>
+                    </div>
+                    <div class="goal-actions">
+                        <button class="goal-btn setor" onclick="depositToGoal(${goal.id})">Setor</button>
+                        <button class="goal-btn edit" onclick="editGoal(${goal.id})">Edit</button>
+                        <button class="goal-btn delete" onclick="deleteGoal(${goal.id})">Hapus</button>
+                    </div>
+                `;
+                goalsList.appendChild(goalEl);
+            });
+        }
+        
+        // Render accounts
+        function renderAccounts() {
+            accountsGrid.innerHTML = '';
+            if (accounts.length === 0) {
+                accountsGrid.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Anda belum memiliki akun</div>';
+                return;
+            }
+            accounts.forEach(account => {
+                const accountEl = document.createElement('div');
+                accountEl.className = 'account-card fade-in';
+                // Get icon based on account type
+                let icon = 'wallet';
+                if (account.type === 'bank') icon = 'university';
+                if (account.type === 'ewallet') icon = 'mobile-alt';
+                if (account.type === 'savings') icon = 'piggy-bank';
+                if (account.type === 'investment') icon = 'chart-line';
+                accountEl.innerHTML = `
+                    <div class="account-header">
+                        <div class="account-icon">
+                            <i class="fas fa-${icon}"></i>
+                        </div>
+                        <div class="account-name">${account.name}</div>
+                    </div>
+                    <div class="account-balance">${formatCurrency(account.balance)}</div>
+                    <div class="account-details">
+                        <div>${getAccountTypeName(account.type)}</div>
+                        <div>${account.description || ''}</div>
+                    </div>
+                    <div class="account-actions" style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="editAccount(${account.id})">Edit</button>
+                        <button class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteAccount(${account.id})">Hapus</button>
+                    </div>
+                `;
+                accountsGrid.appendChild(accountEl);
+            });
+        }
+        
+        // Render categories
+        function renderCategories() {
+            const incomeCategoriesGrid = document.getElementById('incomeCategoriesGrid');
+            const expenseCategoriesGrid = document.getElementById('expenseCategoriesGrid');
+            
+            incomeCategoriesGrid.innerHTML = '';
+            expenseCategoriesGrid.innerHTML = '';
+            
+            const incomeCategories = categories.filter(cat => cat.type === 'income');
+            const expenseCategories = categories.filter(cat => cat.type === 'expense');
+            
+            if (incomeCategories.length === 0) {
+                incomeCategoriesGrid.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada kategori pemasukan</div>';
+            } else {
+                incomeCategories.forEach(category => {
+                    const categoryEl = document.createElement('div');
+                    categoryEl.className = 'category-card fade-in';
+                    categoryEl.innerHTML = `
+                        <div class="category-header">
+                            <div class="category-icon" style="background-color: ${category.color}20; color: ${category.color};">
+                                <i class="fas fa-${category.icon}"></i>
+                            </div>
+                            <div class="category-name">${category.name}</div>
+                        </div>
+                        <div class="category-actions" style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="editCategory(${category.id})">Edit</button>
+                            <button class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteCategory(${category.id})">Hapus</button>
+                        </div>
+                    `;
+                    incomeCategoriesGrid.appendChild(categoryEl);
+                });
+            }
+            
+            if (expenseCategories.length === 0) {
+                expenseCategoriesGrid.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada kategori pengeluaran</div>';
+            } else {
+                expenseCategories.forEach(category => {
+                    const categoryEl = document.createElement('div');
+                    categoryEl.className = 'category-card fade-in';
+                    categoryEl.innerHTML = `
+                        <div class="category-header">
+                            <div class="category-icon" style="background-color: ${category.color}20; color: ${category.color};">
+                                <i class="fas fa-${category.icon}"></i>
+                            </div>
+                            <div class="category-name">${category.name}</div>
+                        </div>
+                        <div class="category-actions" style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="editCategory(${category.id})">Edit</button>
+                            <button class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteCategory(${category.id})">Hapus</button>
+                        </div>
+                    `;
+                    expenseCategoriesGrid.appendChild(categoryEl);
+                });
+            }
+        }
+        
+        // Helper function to format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+        
+        // Helper function to get account name
+        function getAccountName(accountId) {
+            const account = accounts.find(acc => acc.id === accountId);
+            return account ? account.name : accountId;
+        }
+        
+        // Helper function to get account type name
+        function getAccountTypeName(type) {
+            const types = {
+                'cash': 'Tunai',
+                'bank': 'Bank',
+                'ewallet': 'E-Wallet',
+                'savings': 'Tabungan',
+                'investment': 'Investasi',
+                'other': 'Lainnya'
             };
-            categories.push(newCategory);
-            showToast('Kategori berhasil ditambahkan!');
+            return types[type] || type;
         }
         
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.categories = categories;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        renderCategories();
-        
-        // Close modal and reset form
-        closeModal(categoryModal);
-        categoryForm.reset();
-        delete categoryForm.dataset.editingId;
-        document.getElementById('categoryModalTitle').textContent = 'Tambah Kategori Baru';
-        document.getElementById('saveCategoryBtn').textContent = 'Simpan Kategori';
-    }
-    // Save settings
-    function saveSettings() {
-        const name = document.getElementById('userNameInput').value;
-        const email = document.getElementById('userEmail').value;
-        const currency = document.getElementById('currency').value;
-        const dateFormat = document.getElementById('dateFormat').value;
-        
-        // Update user info
-        userNameEl.textContent = name;
-        userAvatar.textContent = name.charAt(0).toUpperCase();
-        
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.name = name;
-            userData.email = email;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Show success message
-        showToast('Pengaturan berhasil disimpan!');
-    }
-    // Export data to Excel
-    function exportData() {
-        // In a real app, this would generate and download an Excel file
-        showToast('Data berhasil diekspor ke Excel!');
-    }
-    // Show toast notification
-    function showToast(message) {
-        toastMessage.textContent = message;
-        toast.classList.add('show');
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 5000);
-    }
-    // Update dashboard summary
-    function updateDashboard() {
-        // Calculate total balance
-        const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
-        totalBalanceEl.textContent = formatCurrency(totalBalance);
-        
-        // Calculate monthly income and expense
-        const now = new Date();
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
-        const monthlyTransactions = transactions.filter(transaction => {
-            const transactionDate = new Date(transaction.date);
-            return transactionDate.getMonth() === currentMonth && 
-                   transactionDate.getFullYear() === currentYear;
-        });
-        const totalIncome = monthlyTransactions
-            .filter(t => t.type === 'income')
-            .reduce((sum, t) => sum + t.amount, 0);
-        const totalExpense = monthlyTransactions
-            .filter(t => t.type === 'expense')
-            .reduce((sum, t) => sum + t.amount, 0);
-        totalIncomeEl.textContent = formatCurrency(totalIncome);
-        totalExpenseEl.textContent = formatCurrency(totalExpense);
-    }
-    // Render recent transactions
-    function renderTransactions() {
-        // Get last 5 transactions
-        const recentTransactions = [...transactions]
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 5);
-        transactionsList.innerHTML = '';
-        if (recentTransactions.length === 0) {
-            transactionsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada transaksi terakhir</div>';
-            return;
-        }
-        recentTransactions.forEach(transaction => {
-            const transactionEl = document.createElement('div');
-            transactionEl.className = 'transaction-item fade-in';
-            // Determine icon and color based on type
-            let iconClass = '';
-            let amountClass = '';
+        // Deposit to goal function
+        function depositToGoal(goalId) {
+            const goal = goals.find(g => g.id === goalId);
+            if (!goal) return;
             
-            if (transaction.type === 'income') {
-                iconClass = 'income';
-                amountClass = 'income';
-            } else if (transaction.type === 'expense') {
-                iconClass = 'expense';
-                amountClass = 'expense';
-            } else {
-                iconClass = 'transfer';
+            const amount = parseFloat(prompt(`Masukkan jumlah yang ingin disetor ke tujuan "${goal.name}":`, "0"));
+            if (isNaN(amount) || amount <= 0) {
+                showToast('Jumlah setoran tidak valid!');
+                return;
             }
             
-            // Format date
-            const transactionDate = new Date(transaction.date);
-            const formattedDate = transactionDate.toLocaleDateString('id-ID', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            });
-            
-            transactionEl.innerHTML = `
-                <div class="transaction-icon ${iconClass}">
-                    <i class="fas fa-${transaction.icon || 'question-circle'}"></i>
-                </div>
-                <div class="transaction-details">
-                    <div class="transaction-category">${transaction.category}</div>
-                    <div class="transaction-account">${getAccountName(transaction.account)}</div>
-                </div>
-                <div class="transaction-amount ${amountClass}">${transaction.type === 'expense' ? '-' : '+'}${formatCurrency(transaction.amount)}</div>
-                <div class="transaction-date">${formattedDate}</div>
-                <div class="transaction-actions">
-                    <button class="action-btn" onclick="editTransaction(${transaction.id})">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn" onclick="deleteTransaction(${transaction.id})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `;
-            transactionsList.appendChild(transactionEl);
-        });
-    }
-    // Render all transactions
-    function renderAllTransactions() {
-        // Sort by date (newest first)
-        const sortedTransactions = [...transactions]
-            .sort((a, b) => new Date(b.date) - new Date(a.date));
-        allTransactionsList.innerHTML = '';
-        if (sortedTransactions.length === 0) {
-            allTransactionsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada transaksi</div>';
-            return;
-        }
-        sortedTransactions.forEach(transaction => {
-            const transactionEl = document.createElement('div');
-            transactionEl.className = 'transaction-item fade-in';
-            // Determine icon and color based on type
-            let iconClass = '';
-            let amountClass = '';
-            
-            if (transaction.type === 'income') {
-                iconClass = 'income';
-                amountClass = 'income';
-            } else if (transaction.type === 'expense') {
-                iconClass = 'expense';
-                amountClass = 'expense';
-            } else {
-                iconClass = 'transfer';
+            // Check if main account has enough balance
+            const mainAccount = accounts.find(acc => acc.id === 1); // Assuming first account is main
+            if (!mainAccount || mainAccount.balance < amount) {
+                showToast('Saldo tidak mencukupi!');
+                return;
             }
             
-            // Format date
-            const transactionDate = new Date(transaction.date);
-            const formattedDate = transactionDate.toLocaleDateString('id-ID', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            });
+            // Update goal and account balance
+            goal.currentAmount += amount;
+            mainAccount.balance -= amount;
             
-            transactionEl.innerHTML = `
-                <div class="transaction-icon ${iconClass}">
-                    <i class="fas fa-${transaction.icon || 'question-circle'}"></i>
-                </div>
-                <div class="transaction-details">
-                    <div class="transaction-category">${transaction.category}</div>
-                    <div class="transaction-account">${getAccountName(transaction.account)}</div>
-                </div>
-                <div class="transaction-amount ${amountClass}">${transaction.type === 'expense' ? '-' : '+'}${formatCurrency(transaction.amount)}</div>
-                <div class="transaction-date">${formattedDate}</div>
-                <div class="transaction-actions">
-                    <button class="action-btn" onclick="editTransaction(${transaction.id})">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn" onclick="deleteTransaction(${transaction.id})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `;
-            allTransactionsList.appendChild(transactionEl);
-        });
-    }
-    // Render goals
-    function renderGoals() {
-        goalsList.innerHTML = '';
-        if (goals.length === 0) {
-            goalsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Anda belum memiliki tujuan keuangan</div>';
-            return;
-        }
-        goals.forEach(goal => {
-            const goalEl = document.createElement('div');
-            goalEl.className = 'goal-item fade-in';
-            // Calculate progress
-            const progress = (goal.currentAmount / goal.targetAmount) * 100;
-            const progressWidth = progress > 100 ? 100 : progress;
-            // Format dates
-            const targetDate = new Date(goal.targetDate);
-            const formattedDate = targetDate.toLocaleDateString('id-ID', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            });
-            // Days remaining
-            const today = new Date();
-            const timeDiff = targetDate.getTime() - today.getTime();
-            const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            goalEl.innerHTML = `
-                <div class="goal-header">
-                    <div class="goal-title">${goal.name}</div>
-                    <div class="goal-amount">${formatCurrency(goal.currentAmount)} / ${formatCurrency(goal.targetAmount)}</div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: ${progressWidth}%"></div>
-                </div>
-                <div class="goal-footer">
-                    <div>${daysRemaining > 0 ? `${daysRemaining} hari lagi` : 'Telah lewat'}</div>
-                    <div>${formattedDate}</div>
-                </div>
-                <div class="goal-actions">
-                    <button class="goal-btn setor" onclick="depositToGoal(${goal.id})">Setor</button>
-                    <button class="goal-btn edit" onclick="editGoal(${goal.id})">Edit</button>
-                    <button class="goal-btn delete" onclick="deleteGoal(${goal.id})">Hapus</button>
-                </div>
-            `;
-            goalsList.appendChild(goalEl);
-        });
-    }
-    // Render accounts
-    function renderAccounts() {
-        accountsGrid.innerHTML = '';
-        if (accounts.length === 0) {
-            accountsGrid.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Anda belum memiliki akun</div>';
-            return;
-        }
-        accounts.forEach(account => {
-            const accountEl = document.createElement('div');
-            accountEl.className = 'account-card fade-in';
-            // Get icon based on account type
-            let icon = 'wallet';
-            if (account.type === 'bank') icon = 'university';
-            if (account.type === 'ewallet') icon = 'mobile-alt';
-            if (account.type === 'savings') icon = 'piggy-bank';
-            if (account.type === 'investment') icon = 'chart-line';
-            accountEl.innerHTML = `
-                <div class="account-header">
-                    <div class="account-icon">
-                        <i class="fas fa-${icon}"></i>
-                    </div>
-                    <div class="account-name">${account.name}</div>
-                </div>
-                <div class="account-balance">${formatCurrency(account.balance)}</div>
-                <div class="account-details">
-                    <div>${getAccountTypeName(account.type)}</div>
-                    <div>${account.description || ''}</div>
-                </div>
-                <div class="account-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="editAccount(${account.id})">Edit</button>
-                    <button class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteAccount(${account.id})">Hapus</button>
-                </div>
-            `;
-            accountsGrid.appendChild(accountEl);
-        });
-    }
-    // Render categories
-    function renderCategories() {
-        const incomeCategoriesGrid = document.getElementById('incomeCategoriesGrid');
-        const expenseCategoriesGrid = document.getElementById('expenseCategoriesGrid');
-        
-        incomeCategoriesGrid.innerHTML = '';
-        expenseCategoriesGrid.innerHTML = '';
-        
-        const incomeCategories = categories.filter(cat => cat.type === 'income');
-        const expenseCategories = categories.filter(cat => cat.type === 'expense');
-        
-        if (incomeCategories.length === 0) {
-            incomeCategoriesGrid.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada kategori pemasukan</div>';
-        } else {
-            incomeCategories.forEach(category => {
-                const categoryEl = document.createElement('div');
-                categoryEl.className = 'category-card fade-in';
-                categoryEl.innerHTML = `
-                    <div class="category-header">
-                        <div class="category-icon" style="background-color: ${category.color}20; color: ${category.color};">
-                            <i class="fas fa-${category.icon}"></i>
-                        </div>
-                        <div class="category-name">${category.name}</div>
-                    </div>
-                    <div class="category-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                        <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="editCategory(${category.id})">Edit</button>
-                        <button class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteCategory(${category.id})">Hapus</button>
-                    </div>
-                `;
-                incomeCategoriesGrid.appendChild(categoryEl);
-            });
-        }
-        
-        if (expenseCategories.length === 0) {
-            expenseCategoriesGrid.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-dark);">Tidak ada kategori pengeluaran</div>';
-        } else {
-            expenseCategories.forEach(category => {
-                const categoryEl = document.createElement('div');
-                categoryEl.className = 'category-card fade-in';
-                categoryEl.innerHTML = `
-                    <div class="category-header">
-                        <div class="category-icon" style="background-color: ${category.color}20; color: ${category.color};">
-                            <i class="fas fa-${category.icon}"></i>
-                        </div>
-                        <div class="category-name">${category.name}</div>
-                    </div>
-                    <div class="category-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                        <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="editCategory(${category.id})">Edit</button>
-                        <button class="btn btn-danger" style="flex: 1; font-size: 12px;" onclick="deleteCategory(${category.id})">Hapus</button>
-                    </div>
-                `;
-                expenseCategoriesGrid.appendChild(categoryEl);
-            });
-        }
-    }
-    // Helper function to format currency
-    function formatCurrency(amount) {
-        return new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0
-        }).format(amount);
-    }
-    // Helper function to get account name
-    function getAccountName(accountId) {
-        const account = accounts.find(acc => acc.id === accountId);
-        return account ? account.name : accountId;
-    }
-    // Helper function to get account type name
-    function getAccountTypeName(type) {
-        const types = {
-            'cash': 'Tunai',
-            'bank': 'Bank',
-            'ewallet': 'E-Wallet',
-            'savings': 'Tabungan',
-            'investment': 'Investasi',
-            'other': 'Lainnya'
-        };
-        return types[type] || type;
-    }
-    // Deposit to goal function
-    function depositToGoal(goalId) {
-        const goal = goals.find(g => g.id === goalId);
-        if (!goal) return;
-        
-        const amount = parseFloat(prompt(`Masukkan jumlah yang ingin disetor ke tujuan "${goal.name}":`, "0"));
-        if (isNaN(amount) || amount <= 0) {
-            showToast('Jumlah setoran tidak valid!');
-            return;
-        }
-        
-        // Check if main account has enough balance
-        const mainAccount = accounts.find(acc => acc.id === 1); // Assuming first account is main
-        if (!mainAccount || mainAccount.balance < amount) {
-            showToast('Saldo tidak mencukupi!');
-            return;
-        }
-        
-        // Update goal and account balance
-        goal.currentAmount += amount;
-        mainAccount.balance -= amount;
-        
-        // Add transaction
-        const newTransaction = {
-            id: transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1,
-            type: 'expense',
-            amount: amount,
-            date: new Date().toISOString().split('T')[0],
-            account: mainAccount.id,
-            category: 'Tujuan: ' + goal.name,
-            description: `Setoran untuk tujuan ${goal.name}`,
-            icon: 'bullseye'
-        };
-        transactions.unshift(newTransaction);
-        
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.transactions = transactions;
-            userData.accounts = accounts;
-            userData.goals = goals;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        updateDashboard();
-        renderGoals();
-        renderAccounts();
-        renderTransactions();
-        renderAllTransactions();
-        updateChart();
-        
-        showToast(`Berhasil menyetor ${formatCurrency(amount)} ke tujuan ${goal.name}`);
-    }
-    // Edit goal function
-    function editGoal(goalId) {
-        const goal = goals.find(g => g.id === goalId);
-        if (!goal) return;
-        
-        // Fill the form with goal data
-        document.getElementById('goalName').value = goal.name;
-        document.getElementById('targetAmount').value = goal.targetAmount;
-        document.getElementById('currentAmount').value = goal.currentAmount;
-        document.getElementById('targetDate').value = goal.targetDate;
-        document.getElementById('goalPriority').value = goal.priority;
-        
-        // Store the goal ID in the form
-        goalForm.dataset.editingId = goalId;
-        
-        // Change the form title and submit button text
-        document.querySelector('#goalModal .modal-title').textContent = 'Edit Tujuan';
-        document.querySelector('#goalForm .btn-primary').textContent = 'Update Tujuan';
-        
-        // Open the modal
-        openModal(goalModal);
-    }
-    // Delete goal function
-    function deleteGoal(goalId) {
-        if (!confirm('Apakah Anda yakin ingin menghapus tujuan ini?')) {
-            return;
-        }
-        
-        const goalIndex = goals.findIndex(g => g.id === goalId);
-        if (goalIndex === -1) return;
-        
-        // Remove the goal
-        goals.splice(goalIndex, 1);
-        
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.goals = goals;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        renderGoals();
-        showToast('Tujuan berhasil dihapus!');
-    }
-    // Edit account function
-    function editAccount(accountId) {
-        const account = accounts.find(a => a.id === accountId);
-        if (!account) return;
-        
-        // Fill the form with account data
-        document.getElementById('accountName').value = account.name;
-        document.getElementById('accountType').value = account.type;
-        document.getElementById('accountBalance').value = account.balance;
-        document.getElementById('accountCurrency').value = account.currency;
-        document.getElementById('accountDescription').value = account.description || '';
-        
-        // Store the account ID in the form
-        accountForm.dataset.editingId = accountId;
-        
-        // Change the form title and submit button text
-        document.querySelector('#accountModal .modal-title').textContent = 'Edit Akun';
-        document.querySelector('#accountForm .btn-primary').textContent = 'Update Akun';
-        
-        // Open the modal
-        openModal(accountModal);
-    }
-    // Delete account function
-    function deleteAccount(accountId) {
-        if (!confirm('Apakah Anda yakin ingin menghapus akun ini?')) {
-            return;
-        }
-        
-        // Check if it's the last account
-        if (accounts.length <= 1) {
-            showToast('Tidak dapat menghapus akun terakhir!');
-            return;
-        }
-        
-        const accountIndex = accounts.findIndex(a => a.id === accountId);
-        if (accountIndex === -1) return;
-        
-        // Check if account is used in any transaction
-        const isUsed = transactions.some(t => t.account === accountId);
-        
-        if (isUsed) {
-            showToast('Akun ini digunakan dalam transaksi dan tidak dapat dihapus!');
-            return;
-        }
-        
-        // Remove the account
-        accounts.splice(accountIndex, 1);
-        
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.accounts = accounts;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        updateDashboard();
-        renderAccounts();
-        showToast('Akun berhasil dihapus!');
-    }
-    // Edit category function
-    function editCategory(categoryId) {
-        const category = categories.find(c => c.id === categoryId);
-        if (!category) return;
-        
-        // Fill the form with category data
-        document.getElementById('categoryName').value = category.name;
-        document.getElementById('categoryType').value = category.type;
-        document.getElementById('categoryIcon').value = category.icon;
-        document.getElementById('categoryColor').value = category.color;
-        
-        // Store the category ID in the form
-        categoryForm.dataset.editingId = categoryId;
-        
-        // Change the form title and submit button text
-        document.getElementById('categoryModalTitle').textContent = 'Edit Kategori';
-        document.getElementById('saveCategoryBtn').textContent = 'Update Kategori';
-        
-        // Open the modal
-        openModal(categoryModal);
-    }
-    // Delete category function
-    function deleteCategory(categoryId) {
-        if (!confirm('Apakah Anda yakin ingin menghapus kategori ini?')) {
-            return;
-        }
-        
-        const categoryIndex = categories.findIndex(cat => cat.id === categoryId);
-        if (categoryIndex === -1) return;
-        
-        // Check if category is used in any transaction
-        const category = categories[categoryIndex];
-        const isUsed = transactions.some(t => t.category === category.name);
-        
-        if (isUsed) {
-            showToast('Kategori ini digunakan dalam transaksi dan tidak dapat dihapus!');
-            return;
-        }
-        
-        // Remove the category
-        categories.splice(categoryIndex, 1);
-        
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.categories = categories;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
-        }
-        
-        // Update UI
-        renderCategories();
-        showToast('Kategori berhasil dihapus!');
-    }
-    // Edit transaction function
-    function editTransaction(transactionId) {
-        const transaction = transactions.find(t => t.id === transactionId);
-        if (!transaction) return;
-        
-        // Fill the form with transaction data
-        document.querySelector(`input[name="type"][value="${transaction.type}"]`).checked = true;
-        document.getElementById('amount').value = transaction.amount;
-        document.getElementById('date').value = transaction.date;
-        document.getElementById('account').value = transaction.account;
-        
-        // Update category options based on type
-        updateCategoryOptions();
-        setTimeout(() => {
-            document.getElementById('category').value = categories.find(c => c.name === transaction.category)?.id || '';
-        }, 0);
-        
-        document.getElementById('description').value = transaction.description || '';
-        
-        // Store the transaction ID in the form
-        transactionForm.dataset.editingId = transactionId;
-        
-        // Change the form title and submit button text
-        document.querySelector('#transactionModal .modal-title').textContent = 'Edit Transaksi';
-        document.querySelector('#transactionForm .btn-primary').textContent = 'Update Transaksi';
-        
-        // Open the modal
-        openModal(transactionModal);
-    }
-    // Delete transaction function
-    function deleteTransaction(transactionId) {
-        if (!confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
-            return;
-        }
-        
-        const transactionIndex = transactions.findIndex(t => t.id === transactionId);
-        if (transactionIndex === -1) return;
-        
-        const transaction = transactions[transactionIndex];
-        
-        // Find the account and adjust balance
-        const account = accounts.find(acc => acc.id === transaction.account);
-        if (account) {
-            if (transaction.type === 'income') {
-                account.balance -= transaction.amount;
-            } else if (transaction.type === 'expense') {
-                account.balance += transaction.amount;
+            // Add transaction
+            const newTransaction = {
+                id: transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1,
+                type: 'expense',
+                amount: amount,
+                date: new Date().toISOString().split('T')[0],
+                account: mainAccount.id,
+                category: 'Tujuan: ' + goal.name,
+                description: `Setoran untuk tujuan ${goal.name}`,
+                icon: 'bullseye'
+            };
+            transactions.unshift(newTransaction);
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.transactions = transactions;
+                userData.accounts = accounts;
+                userData.goals = goals;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
             }
+            
+            // Update UI
+            updateDashboard();
+            renderGoals();
+            renderAccounts();
+            renderTransactions();
+            renderAllTransactions();
+            updateChart();
+            
+            showToast(`Berhasil menyetor ${formatCurrency(amount)} ke tujuan ${goal.name}`);
         }
         
-        // Remove the transaction
-        transactions.splice(transactionIndex, 1);
-        
-        // Save to localStorage
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
-            userData.transactions = transactions;
-            userData.accounts = accounts;
-            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+        // Edit goal function
+        function editGoal(goalId) {
+            const goal = goals.find(g => g.id === goalId);
+            if (!goal) return;
+            
+            // Fill the form with goal data
+            document.getElementById('goalName').value = goal.name;
+            document.getElementById('targetAmount').value = goal.targetAmount;
+            document.getElementById('currentAmount').value = goal.currentAmount;
+            document.getElementById('targetDate').value = goal.targetDate;
+            document.getElementById('goalPriority').value = goal.priority;
+            
+            // Store the goal ID in the form
+            goalForm.dataset.editingId = goalId;
+            
+            // Change the form title and submit button text
+            document.querySelector('#goalModal .modal-title').textContent = 'Edit Tujuan';
+            document.querySelector('#goalForm .btn-primary').textContent = 'Update Tujuan';
+            
+            // Open the modal
+            openModal(goalModal);
         }
         
-        // Update UI
-        updateDashboard();
-        renderTransactions();
-        renderAllTransactions();
-        updateChart();
+        // Delete goal function
+        function deleteGoal(goalId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus tujuan ini?')) {
+                return;
+            }
+            
+            const goalIndex = goals.findIndex(g => g.id === goalId);
+            if (goalIndex === -1) return;
+            
+            // Remove the goal
+            goals.splice(goalIndex, 1);
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.goals = goals;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            renderGoals();
+            showToast('Tujuan berhasil dihapus!');
+        }
         
-        showToast('Transaksi berhasil dihapus!');
-    }
-    // Initialize the app when DOM is loaded
-    document.addEventListener('DOMContentLoaded', init);
-    // Make functions available globally for inline event handlers
-    window.editTransaction = editTransaction;
-    window.deleteTransaction = deleteTransaction;
-    window.depositToGoal = depositToGoal;
-    window.editGoal = editGoal;
-    window.deleteGoal = deleteGoal;
-    window.editAccount = editAccount;
-    window.deleteAccount = deleteAccount;
-    window.editCategory = editCategory;
-    window.deleteCategory = deleteCategory;
-</script>
+        // Edit account function
+        function editAccount(accountId) {
+            const account = accounts.find(a => a.id === accountId);
+            if (!account) return;
+            
+            // Fill the form with account data
+            document.getElementById('accountName').value = account.name;
+            document.getElementById('accountType').value = account.type;
+            document.getElementById('accountBalance').value = account.balance;
+            document.getElementById('accountCurrency').value = account.currency;
+            document.getElementById('accountDescription').value = account.description || '';
+            
+            // Store the account ID in the form
+            accountForm.dataset.editingId = accountId;
+            
+            // Change the form title and submit button text
+            document.querySelector('#accountModal .modal-title').textContent = 'Edit Akun';
+            document.querySelector('#accountForm .btn-primary').textContent = 'Update Akun';
+            
+            // Open the modal
+            openModal(accountModal);
+        }
+        
+        // Delete account function
+        function deleteAccount(accountId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus akun ini?')) {
+                return;
+            }
+            
+            // Check if it's the last account
+            if (accounts.length <= 1) {
+                showToast('Tidak dapat menghapus akun terakhir!');
+                return;
+            }
+            
+            const accountIndex = accounts.findIndex(a => a.id === accountId);
+            if (accountIndex === -1) return;
+            
+            // Check if account is used in any transaction
+            const isUsed = transactions.some(t => t.account === accountId);
+            
+            if (isUsed) {
+                showToast('Akun ini digunakan dalam transaksi dan tidak dapat dihapus!');
+                return;
+            }
+            
+            // Remove the account
+            accounts.splice(accountIndex, 1);
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.accounts = accounts;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            updateDashboard();
+            renderAccounts();
+            showToast('Akun berhasil dihapus!');
+        }
+        
+        // Edit category function
+        function editCategory(categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            // Fill the form with category data
+            document.getElementById('categoryName').value = category.name;
+            document.getElementById('categoryType').value = category.type;
+            document.getElementById('categoryIcon').value = category.icon;
+            document.getElementById('categoryColor').value = category.color;
+            
+            // Store the category ID in the form
+            categoryForm.dataset.editingId = categoryId;
+            
+            // Change the form title and submit button text
+            document.getElementById('categoryModalTitle').textContent = 'Edit Kategori';
+            document.getElementById('saveCategoryBtn').textContent = 'Update Kategori';
+            
+            // Open the modal
+            openModal(categoryModal);
+        }
+        
+        // Delete category function
+        function deleteCategory(categoryId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus kategori ini?')) {
+                return;
+            }
+            
+            const categoryIndex = categories.findIndex(cat => cat.id === categoryId);
+            if (categoryIndex === -1) return;
+            
+            // Check if category is used in any transaction
+            const category = categories[categoryIndex];
+            const isUsed = transactions.some(t => t.category === category.name);
+            
+            if (isUsed) {
+                showToast('Kategori ini digunakan dalam transaksi dan tidak dapat dihapus!');
+                return;
+            }
+            
+            // Remove the category
+            categories.splice(categoryIndex, 1);
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.categories = categories;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            renderCategories();
+            showToast('Kategori berhasil dihapus!');
+        }
+        
+        // Edit transaction function
+        function editTransaction(transactionId) {
+            const transaction = transactions.find(t => t.id === transactionId);
+            if (!transaction) return;
+            
+            // Fill the form with transaction data
+            document.querySelector(`input[name="type"][value="${transaction.type}"]`).checked = true;
+            document.getElementById('amount').value = transaction.amount;
+            document.getElementById('date').value = transaction.date;
+            document.getElementById('account').value = transaction.account;
+            
+            // Update category options based on type
+            updateCategoryOptions();
+            setTimeout(() => {
+                document.getElementById('category').value = categories.find(c => c.name === transaction.category)?.id || '';
+            }, 0);
+            
+            document.getElementById('description').value = transaction.description || '';
+            
+            // Store the transaction ID in the form
+            transactionForm.dataset.editingId = transactionId;
+            
+            // Change the form title and submit button text
+            document.querySelector('#transactionModal .modal-title').textContent = 'Edit Transaksi';
+            document.querySelector('#transactionForm .btn-primary').textContent = 'Update Transaksi';
+            
+            // Open the modal
+            openModal(transactionModal);
+        }
+        
+        // Delete transaction function
+        function deleteTransaction(transactionId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+                return;
+            }
+            
+            const transactionIndex = transactions.findIndex(t => t.id === transactionId);
+            if (transactionIndex === -1) return;
+            
+            const transaction = transactions[transactionIndex];
+            
+            // Find the account and adjust balance
+            const account = accounts.find(acc => acc.id === transaction.account);
+            if (account) {
+                if (transaction.type === 'income') {
+                    account.balance -= transaction.amount;
+                } else if (transaction.type === 'expense') {
+                    account.balance += transaction.amount;
+                }
+            }
+            
+            // Remove the transaction
+            transactions.splice(transactionIndex, 1);
+            
+            // Save to localStorage
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.transactions = transactions;
+                userData.accounts = accounts;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            }
+            
+            // Update UI
+            updateDashboard();
+            renderTransactions();
+            renderAllTransactions();
+            updateChart();
+            
+            showToast('Transaksi berhasil dihapus!');
+        }
+        
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Make functions available globally for inline event handlers
+        window.editTransaction = editTransaction;
+        window.deleteTransaction = deleteTransaction;
+        window.depositToGoal = depositToGoal;
+        window.editGoal = editGoal;
+        window.deleteGoal = deleteGoal;
+        window.editAccount = editAccount;
+        window.deleteAccount = deleteAccount;
+        window.editCategory = editCategory;
+        window.deleteCategory = deleteCategory;
+    </script>
 </body>
 </html>
